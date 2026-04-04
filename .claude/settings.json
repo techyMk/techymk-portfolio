@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:turquoise-homework-212120.framer.app)",
+      "Bash(ls /c/Users/shoba/OneDrive/Documents/web-portfolio/*.json /c/Users/shoba/OneDrive/Documents/web-portfolio/*.js /c/Users/shoba/OneDrive/Documents/web-portfolio/*.html /c/Users/shoba/OneDrive/Documents/web-portfolio/*.config*)",
+      "Bash(curl -s -L \"https://turquoise-homework-212120.framer.app/\")",
+      "Read(//c/Users/shoba/.claude/projects/c--Users-shoba-OneDrive-Documents-web-portfolio/046e06a1-6b25-4885-a509-7bcdcbc2f137/tool-results/**)",
+      "Bash(grep -oP '#[0-9a-fA-F]{3,8}' /c/Users/shoba/.claude/projects/c--Users-shoba-OneDrive-Documents-web-portfolio/046e06a1-6b25-4885-a509-7bcdcbc2f137/tool-results/bpm3gsu74.txt)",
+      "Bash(npx vite:*)",
+      "Bash(wc -l /c/Users/shoba/OneDrive/Documents/web-portfolio/src/components/*.jsx /c/Users/shoba/OneDrive/Documents/web-portfolio/src/*.jsx /c/Users/shoba/OneDrive/Documents/web-portfolio/src/*.css)",
+      "Bash(curl -s http://localhost:5173)",
+      "Bash(curl -s http://localhost:5173/src/index.css)",
+      "Bash(node -e \"const icons = ['ArrowDown','ArrowUpRight','Menu','X','Layers','Palette','Globe','Sparkles','MapPin','ChevronLeft','ChevronRight','Plus','Clock','ArrowUp']; const lr = require\\('/c/Users/shoba/OneDrive/Documents/web-portfolio/node_modules/lucide-react'\\); icons.forEach\\(i => console.log\\(i, !!lr[i]\\)\\);\")",
+      "Bash(taskkill //F //IM node.exe)",
+      "Bash(npm install:*)",
+      "Bash(node -e \"console.log\\(require\\('/c/Users/shoba/OneDrive/Documents/web-portfolio/node_modules/@vitejs/plugin-react/package.json'\\).version\\)\")",
+      "WebFetch(domain:portfolio-techymk.netlify.app)"
+    ]
+  }
+}
