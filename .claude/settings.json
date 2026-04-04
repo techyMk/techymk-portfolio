@@ -16,7 +16,8 @@
       "Bash(node -e \"console.log\\(require\\('/c/Users/shoba/OneDrive/Documents/web-portfolio/node_modules/@vitejs/plugin-react/package.json'\\).version\\)\")",
       "WebFetch(domain:portfolio-techymk.netlify.app)",
       "Bash(ping -n 2 google.com)",
-      "Bash(ping -n 2 github.com)"
+      "Bash(ping -n 2 github.com)",
+      "Read(//c/Users/shoba/.ssh/**)"
     ]
   }
 }
