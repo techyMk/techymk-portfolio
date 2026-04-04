@@ -98,7 +98,7 @@ function InteractiveHeading({ inView }) {
   const [resetSignal, setResetSignal] = useState(0);
   const resetTimerRef = useRef(null);
 
-  // Called by any letter on drag start or end — restarts the 10s idle timer
+  // Called by any letter on drag start or end — restarts the 5s idle timer
   const handleDragActivity = useCallback(() => {
     if (resetTimerRef.current) clearTimeout(resetTimerRef.current);
     resetTimerRef.current = setTimeout(() => {
