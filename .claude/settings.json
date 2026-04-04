@@ -14,7 +14,9 @@
       "Bash(taskkill //F //IM node.exe)",
       "Bash(npm install:*)",
       "Bash(node -e \"console.log\\(require\\('/c/Users/shoba/OneDrive/Documents/web-portfolio/node_modules/@vitejs/plugin-react/package.json'\\).version\\)\")",
-      "WebFetch(domain:portfolio-techymk.netlify.app)"
+      "WebFetch(domain:portfolio-techymk.netlify.app)",
+      "Bash(ping -n 2 google.com)",
+      "Bash(ping -n 2 github.com)"
     ]
   }
 }
