@@ -28,7 +28,7 @@ function ScrollToTop() {
       {show && (
         <motion.button
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          className="fixed bottom-6 right-6 z-50 w-10 h-10 rounded-full bg-accent/90 text-white flex items-center justify-center shadow-lg shadow-accent/25 backdrop-blur-sm"
+          className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-accent/90 text-white flex items-center justify-center shadow-lg shadow-accent/25 backdrop-blur-sm"
           initial={{ opacity: 0, scale: 0.5, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.5, y: 20 }}
@@ -62,7 +62,7 @@ function BuyMeCoffee() {
           href="https://buymeacoffee.com/techymk"
           target="_blank"
           rel="noopener noreferrer"
-          className="fixed bottom-6 left-6 z-50 flex items-center gap-2 pl-3 pr-4 py-2.5 rounded-full bg-[#FFDD00] text-[#0D0D0D] text-[13px] font-bold shadow-lg shadow-[#FFDD00]/20"
+          className="fixed bottom-4 left-4 sm:bottom-6 sm:left-6 z-50 flex items-center gap-2 pl-2.5 pr-3 sm:pl-3 sm:pr-4 py-2 sm:py-2.5 rounded-full bg-[#FFDD00] text-[#0D0D0D] text-[12px] sm:text-[13px] font-bold shadow-lg shadow-[#FFDD00]/20"
           initial={{ opacity: 0, scale: 0.5, x: -20 }}
           animate={{ opacity: 1, scale: 1, x: 0 }}
           exit={{ opacity: 0, scale: 0.5, x: -20 }}

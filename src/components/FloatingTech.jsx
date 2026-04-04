@@ -68,14 +68,24 @@ export default function FloatingTech() {
     return () => window.removeEventListener('mousemove', fn);
   }, [mouseX, mouseY]);
 
-  // Pick a random subset of symbols
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
+
+  // Reduce particle count on mobile for performance
   const particles = useMemo(() => {
+    const count = isMobile ? 10 : 28;
     const picked = [];
-    for (let i = 0; i < 28; i++) {
+    for (let i = 0; i < count; i++) {
       picked.push(symbols[i % symbols.length]);
     }
     return picked;
-  }, []);
+  }, [isMobile]);
 
   return (
     <div className="fixed inset-0 overflow-hidden pointer-events-none z-[1]">

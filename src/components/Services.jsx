@@ -17,7 +17,7 @@ function Card({ service, index }) {
 
   return (
     <ScrollReveal delay={index * 0.06} blur>
-      <div ref={cardRef} onMouseMove={onMove} onMouseLeave={() => setTilt({ x: 0, y: 0 })} className="group glow-border glass rounded-[22px] p-7 md:p-9 h-full transition-all duration-500 hover:shadow-2xl hover:shadow-accent/[0.06]" style={{ transform: `perspective(600px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`, transition: 'transform 0.2s ease-out, box-shadow 0.5s' }} data-hover>
+      <div ref={cardRef} onMouseMove={onMove} onMouseLeave={() => setTilt({ x: 0, y: 0 })} className="group glow-border glass rounded-[18px] sm:rounded-[22px] p-5 sm:p-7 md:p-9 h-full transition-all duration-500 hover:shadow-2xl hover:shadow-accent/[0.06]" style={{ transform: `perspective(600px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`, transition: 'transform 0.2s ease-out, box-shadow 0.5s' }} data-hover>
         <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-accent/15 to-accent/5 border border-accent/10 flex items-center justify-center mb-7 group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-accent/10 transition-all duration-500">
           <Icon size={22} className="text-accent" />
         </div>
@@ -39,12 +39,12 @@ export default function Services() {
       <div className="max-w-content mx-auto">
         <ScrollReveal className="text-center mb-16 md:mb-20">
           <span className="inline-block px-3.5 py-1.5 rounded-full bg-accent/10 text-accent text-[11px] font-bold uppercase tracking-[0.18em] mb-6">Services</span>
-          <h2 className="font-display text-[36px] md:text-[52px] font-bold leading-[1.05] tracking-[-0.04em] mb-5">
+          <h2 className="font-display text-[28px] sm:text-[36px] md:text-[52px] font-bold leading-[1.05] tracking-[-0.04em] mb-4 sm:mb-5">
             <span className="text-content-primary">What I </span><span className="text-gradient">bring to the table</span>
           </h2>
-          <p className="text-content-secondary text-[16px] max-w-lg mx-auto leading-relaxed">From design to development — full-stack creative services to bring your ideas to life.</p>
+          <p className="text-content-secondary text-[14px] sm:text-[16px] max-w-lg mx-auto leading-relaxed">From design to development — full-stack creative services to bring your ideas to life.</p>
         </ScrollReveal>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">{services.map((s, i) => <Card key={s.title} service={s} index={i} />)}</div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-5">{services.map((s, i) => <Card key={s.title} service={s} index={i} />)}</div>
       </div>
     </section>
   );

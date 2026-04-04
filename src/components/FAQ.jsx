@@ -34,7 +34,7 @@ function Item({ faq, index, open, toggle }) {
               transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
               className="overflow-hidden"
             >
-              <p className="px-5 md:px-6 pb-6 pl-[52px] md:pl-[60px] text-content-secondary text-[14px] leading-[1.85]">{faq.a}</p>
+              <p className="px-4 sm:px-5 md:px-6 pb-5 sm:pb-6 pl-[44px] sm:pl-[52px] md:pl-[60px] text-content-secondary text-[13px] sm:text-[14px] leading-[1.85]">{faq.a}</p>
             </motion.div>
           )}
         </AnimatePresence>
@@ -49,10 +49,10 @@ export default function FAQ() {
   return (
     <section id="faq" className="section-padding">
       <div className="max-w-content mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-[0.4fr_0.6fr] gap-12 lg:gap-20">
+        <div className="grid grid-cols-1 lg:grid-cols-[0.4fr_0.6fr] gap-8 sm:gap-12 lg:gap-20">
           <ScrollReveal className="lg:sticky lg:top-32 lg:self-start">
-            <span className="inline-block px-3.5 py-1.5 rounded-full bg-accent/10 text-accent text-[11px] font-bold uppercase tracking-[0.18em] mb-6">FAQ</span>
-            <h2 className="font-display text-[36px] md:text-[52px] font-bold leading-[1.05] tracking-[-0.04em] mb-4"><span className="text-gradient">Questions?</span></h2>
+            <span className="inline-block px-3.5 py-1.5 rounded-full bg-accent/10 text-accent text-[11px] font-bold uppercase tracking-[0.18em] mb-4 sm:mb-6">FAQ</span>
+            <h2 className="font-display text-[28px] sm:text-[36px] md:text-[52px] font-bold leading-[1.05] tracking-[-0.04em] mb-3 sm:mb-4"><span className="text-gradient">Questions?</span></h2>
             <p className="text-content-secondary text-[15px] leading-relaxed mb-6">Can't find what you need?</p>
             <a href="https://wa.me/917825938625" target="_blank" rel="noopener noreferrer" className="text-accent text-[14px] font-semibold hover:underline" data-hover>Let's chat directly →</a>
           </ScrollReveal>

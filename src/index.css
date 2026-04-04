@@ -65,7 +65,9 @@ body {
 
 /* ── Spacing ── */
 .section-padding { padding: 150px 24px; }
-@media (max-width: 768px) { .section-padding { padding: 90px 16px; } }
+@media (max-width: 1024px) { .section-padding { padding: 120px 20px; } }
+@media (max-width: 768px) { .section-padding { padding: 80px 16px; } }
+@media (max-width: 480px) { .section-padding { padding: 60px 14px; } }
 
 /* ── Animated grain ── */
 .grain::after {

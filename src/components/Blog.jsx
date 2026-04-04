@@ -15,7 +15,7 @@ function Card({ post, index }) {
           <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
           <span className="absolute top-4 left-4 px-2.5 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-white text-[11px] font-semibold uppercase tracking-wider">{post.cat}</span>
         </div>
-        <div className="p-7">
+        <div className="p-4 sm:p-7">
           <div className="flex items-center gap-3 text-content-muted text-[12px] mb-3">
             <span>{post.date}</span>
             <span className="w-1 h-1 rounded-full bg-content-muted" />
@@ -34,14 +34,14 @@ export default function Blog() {
   return (
     <section id="blog" className="section-padding">
       <div className="max-w-content mx-auto">
-        <ScrollReveal className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-16 md:mb-20">
+        <ScrollReveal className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-10 sm:mb-16 md:mb-20">
           <div>
-            <span className="inline-block px-3.5 py-1.5 rounded-full bg-accent/10 text-accent text-[11px] font-bold uppercase tracking-[0.18em] mb-6">Blog</span>
-            <h2 className="font-display text-[36px] md:text-[52px] font-bold leading-[1.05] tracking-[-0.04em]"><span className="text-content-primary">Insights & </span><span className="text-gradient">ideas</span></h2>
+            <span className="inline-block px-3.5 py-1.5 rounded-full bg-accent/10 text-accent text-[11px] font-bold uppercase tracking-[0.18em] mb-4 sm:mb-6">Blog</span>
+            <h2 className="font-display text-[28px] sm:text-[36px] md:text-[52px] font-bold leading-[1.05] tracking-[-0.04em]"><span className="text-content-primary">Insights & </span><span className="text-gradient">ideas</span></h2>
           </div>
           <a href="#blog" className="inline-flex items-center gap-2 text-accent text-[14px] font-semibold group" data-hover>All articles <ArrowUpRight size={16} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" /></a>
         </ScrollReveal>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">{posts.map((p, i) => <Card key={p.id} post={p} index={i} />)}</div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">{posts.map((p, i) => <Card key={p.id} post={p} index={i} />)}</div>
       </div>
     </section>
   );

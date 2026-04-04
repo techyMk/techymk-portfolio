@@ -110,11 +110,11 @@ export default function Footer() {
   const displayText = useScramble(current.text, scrambling);
 
   return (
-    <footer className="relative z-[1] px-6 pb-6 pt-4">
+    <footer className="relative z-[1] px-4 sm:px-6 pb-6 pt-4">
       <div className="max-w-content mx-auto">
         <ScrollReveal>
-          <div className="py-16 md:py-24 border-t border-border/30">
-            <div className="flex items-center gap-3 mb-5">
+          <div className="py-10 sm:py-16 md:py-24 border-t border-border/30">
+            <div className="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-5">
               <p className="text-content-muted text-[12px] uppercase tracking-[0.2em] font-semibold">Ready to start?</p>
               <AnimatePresence mode="wait">
                 <motion.span
@@ -136,7 +136,7 @@ export default function Footer() {
               <div className="flex items-center gap-5 md:gap-7">
                 <button
                   onClick={handleTextClick}
-                  className="font-display font-bold tracking-[-0.04em] leading-none text-[24px] sm:text-[32px] md:text-[48px] lg:text-[60px] transition-colors duration-300 hover:opacity-80 text-left cursor-pointer"
+                  className="font-display font-bold tracking-[-0.04em] leading-none text-[16px] xs:text-[20px] sm:text-[28px] md:text-[48px] lg:text-[60px] transition-colors duration-300 hover:opacity-80 text-left cursor-pointer break-all sm:break-normal"
                   style={{ color: current.color }}
                   data-hover
                 >
@@ -145,7 +145,7 @@ export default function Footer() {
 
                 <motion.button
                   onClick={shuffle}
-                  className="relative w-14 h-14 md:w-16 md:h-16 rounded-full bg-accent flex items-center justify-center text-white flex-shrink-0 shadow-lg shadow-accent/25"
+                  className="relative w-10 h-10 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full bg-accent flex items-center justify-center text-white flex-shrink-0 shadow-lg shadow-accent/25"
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.85 }}
                   animate={scrambling ? { rotate: 360 } : { rotate: 0 }}
@@ -223,7 +223,7 @@ export default function Footer() {
             </div>
 
             {/* Progress dots */}
-            <div className="flex items-center gap-2 mt-6">
+            <div className="flex items-center gap-1.5 sm:gap-2 mt-4 sm:mt-6">
               {entries.map((e, i) => (
                 <motion.button
                   key={e.label}
@@ -234,14 +234,14 @@ export default function Footer() {
                   data-hover
                 />
               ))}
-              <span className="text-content-muted text-[11px] ml-2">click text for a surprise</span>
+              <span className="text-content-muted text-[10px] sm:text-[11px] ml-1.5 sm:ml-2 hidden xs:inline">click text for a surprise</span>
             </div>
           </div>
         </ScrollReveal>
 
         {/* Socials row + branding */}
-        <div className="border-t border-border/30 py-10">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-8">
+        <div className="border-t border-border/30 py-6 sm:py-10">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6 sm:gap-8">
             <div className="flex items-center gap-3">
               <img src="assets/favicon.png" alt="TechyMk" className="w-9 h-9 rounded-full object-cover" />
               <div>

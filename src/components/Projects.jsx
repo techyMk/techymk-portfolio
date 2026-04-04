@@ -51,7 +51,7 @@ function Card({ p, index }) {
             {/* Large title watermark */}
             <div className="absolute inset-0 flex items-center justify-center overflow-hidden">
               <motion.span
-                className="font-display text-white/[0.07] text-[80px] md:text-[110px] font-bold tracking-[-0.04em] select-none whitespace-nowrap"
+                className="font-display text-white/[0.07] text-[48px] sm:text-[80px] md:text-[110px] font-bold tracking-[-0.04em] select-none whitespace-nowrap"
                 animate={hovered ? { scale: 1.05, y: -5 } : { scale: 1, y: 0 }}
                 transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
               >
@@ -74,7 +74,7 @@ function Card({ p, index }) {
             />
 
             {/* Content */}
-            <div className="absolute bottom-0 inset-x-0 p-6 md:p-7">
+            <div className="absolute bottom-0 inset-x-0 p-4 sm:p-6 md:p-7">
               <div className="flex flex-wrap gap-1.5 mb-3">
                 {p.tags.map(t => (
                   <span key={t} className="px-2.5 py-1 rounded-full bg-white/[0.08] backdrop-blur-sm text-white/60 text-[10px] font-semibold uppercase tracking-wider group-hover:bg-white/[0.12] group-hover:text-white/80 transition-all duration-300">{t}</span>
@@ -99,10 +99,10 @@ export default function Projects() {
   return (
     <section id="projects" className="section-padding">
       <div className="max-w-content mx-auto">
-        <ScrollReveal className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-14 md:mb-16">
+        <ScrollReveal className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-10 sm:mb-14 md:mb-16">
           <div>
-            <span className="inline-block px-3.5 py-1.5 rounded-full bg-accent/10 text-accent text-[11px] font-bold uppercase tracking-[0.18em] mb-6">Selected Work</span>
-            <h2 className="font-display text-[36px] md:text-[52px] font-bold leading-[1.05] tracking-[-0.04em]">
+            <span className="inline-block px-3.5 py-1.5 rounded-full bg-accent/10 text-accent text-[11px] font-bold uppercase tracking-[0.18em] mb-4 sm:mb-6">Selected Work</span>
+            <h2 className="font-display text-[28px] sm:text-[36px] md:text-[52px] font-bold leading-[1.05] tracking-[-0.04em]">
               <span className="text-content-primary">Featured </span><span className="text-gradient">projects</span>
             </h2>
           </div>
@@ -111,7 +111,7 @@ export default function Projects() {
           </a>
         </ScrollReveal>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
           {projects.map((p, i) => (
             <Card key={p.id} p={p} index={i} />
           ))}

@@ -47,17 +47,17 @@ export default function About() {
           <span className="inline-block px-3.5 py-1.5 rounded-full bg-accent/10 text-accent text-[11px] font-bold uppercase tracking-[0.18em] mb-10">About</span>
         </ScrollReveal>
 
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.2fr] gap-14 lg:gap-20 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.2fr] gap-10 sm:gap-14 lg:gap-20 items-start">
           {/* Left — Info */}
           <div>
             <ScrollReveal>
-              <h2 className="font-display text-content-primary text-[28px] md:text-[40px] font-bold leading-[1.15] tracking-[-0.035em] mb-7">
+              <h2 className="font-display text-content-primary text-[24px] sm:text-[28px] md:text-[40px] font-bold leading-[1.15] tracking-[-0.035em] mb-5 sm:mb-7">
                 Passionate about creating <span className="text-gradient">digital experiences</span> that matter
               </h2>
             </ScrollReveal>
 
             <ScrollReveal delay={0.08}>
-              <div className="space-y-4 text-content-secondary text-[15px] leading-[1.8] mb-8">
+              <div className="space-y-3 sm:space-y-4 text-content-secondary text-[14px] sm:text-[15px] leading-[1.8] mb-6 sm:mb-8">
                 <p>I'm Manikandan — a designer and frontend developer who thrives at the intersection of creativity and code. I specialize in building beautiful, responsive websites and solving complex problems with clean, efficient solutions.</p>
                 <p>With expertise in UI/UX design using Figma, Photoshop, and Canva, combined with strong frontend skills in React and modern JavaScript, I deliver experiences that are both visually stunning and technically robust.</p>
               </div>
@@ -75,12 +75,12 @@ export default function About() {
             </ScrollReveal>
 
             {/* Stats */}
-            <div className="grid grid-cols-3 gap-3">
+            <div className="grid grid-cols-3 gap-2 sm:gap-3">
               {stats.map((s, i) => (
                 <ScrollReveal key={s.label} delay={0.16 + i * 0.05}>
-                  <div className="glass glow-border rounded-2xl p-4 text-center">
-                    <div className="font-display text-content-primary text-[28px] md:text-[34px] font-bold leading-none tracking-[-0.03em] mb-1"><Counter target={s.val} suffix={s.suf} /></div>
-                    <p className="text-content-muted text-[11px] font-medium uppercase tracking-wider">{s.label}</p>
+                  <div className="glass glow-border rounded-xl sm:rounded-2xl p-3 sm:p-4 text-center">
+                    <div className="font-display text-content-primary text-[22px] sm:text-[28px] md:text-[34px] font-bold leading-none tracking-[-0.03em] mb-1"><Counter target={s.val} suffix={s.suf} /></div>
+                    <p className="text-content-muted text-[9px] sm:text-[11px] font-medium uppercase tracking-wider">{s.label}</p>
                   </div>
                 </ScrollReveal>
               ))}
@@ -89,25 +89,25 @@ export default function About() {
 
           {/* Right — Skills grid */}
           <ScrollReveal delay={0.1} direction="right">
-            <div className="glass glow-border rounded-[24px] p-7 md:p-9">
-              <div className="flex items-center justify-between mb-7">
+            <div className="glass glow-border rounded-[20px] sm:rounded-[24px] p-5 sm:p-7 md:p-9">
+              <div className="flex items-center justify-between mb-5 sm:mb-7">
                 <p className="text-content-muted text-[11px] uppercase tracking-[0.18em] font-bold">Tech Stack</p>
                 <p className="text-content-muted text-[11px]">{skills.length} technologies</p>
               </div>
-              <div className="grid grid-cols-3 sm:grid-cols-5 gap-3">
+              <div className="grid grid-cols-3 xs:grid-cols-4 sm:grid-cols-5 gap-2 sm:gap-3">
                 {skills.map((skill) => (
                   <motion.div
                     key={skill.name}
-                    className="relative rounded-xl p-4 text-center border border-border/50 bg-bg-elevated/50 hover:border-border-hover transition-all duration-300 group overflow-hidden"
+                    className="relative rounded-lg sm:rounded-xl p-2.5 sm:p-4 text-center border border-border/50 bg-bg-elevated/50 hover:border-border-hover transition-all duration-300 group overflow-hidden"
                     whileHover={{ y: -4, scale: 1.03 }}
                     data-hover
                   >
                     {/* Colored glow on hover */}
                     <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" style={{ background: `radial-gradient(circle at 50% 50%, ${skill.color}10 0%, transparent 70%)` }} />
                     {/* Icon */}
-                    <img src={skill.img} alt={skill.name} className="w-7 h-7 mx-auto mb-2 transition-transform duration-300 group-hover:scale-110" loading="lazy" />
+                    <img src={skill.img} alt={skill.name} className="w-6 h-6 sm:w-7 sm:h-7 mx-auto mb-1.5 sm:mb-2 transition-transform duration-300 group-hover:scale-110" loading="lazy" />
                     {/* Name */}
-                    <p className="text-content-primary text-[12px] font-semibold group-hover:text-black dark:group-hover:text-white transition-colors duration-300 relative z-10">{skill.name}</p>
+                    <p className="text-content-primary text-[10px] sm:text-[12px] font-semibold group-hover:text-black dark:group-hover:text-white transition-colors duration-300 relative z-10 truncate">{skill.name}</p>
                     {/* Color bar at bottom */}
                     <div className="absolute bottom-0 left-0 right-0 h-[2px] scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" style={{ background: skill.color }} />
                   </motion.div>

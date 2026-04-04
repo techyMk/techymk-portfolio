@@ -185,15 +185,15 @@ export default function CTA() {
   return (
     <section id="contact" className="section-padding">
       <div className="max-w-content mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 sm:gap-12 lg:gap-20">
           {/* Left */}
           <div>
             <ScrollReveal>
-              <span className="inline-block px-3.5 py-1.5 rounded-full bg-accent/10 text-accent text-[11px] font-bold uppercase tracking-[0.18em] mb-6">Get in Touch</span>
-              <h2 className="font-display text-[36px] md:text-[52px] font-bold leading-[1.05] tracking-[-0.04em] mb-5">
+              <span className="inline-block px-3.5 py-1.5 rounded-full bg-accent/10 text-accent text-[11px] font-bold uppercase tracking-[0.18em] mb-4 sm:mb-6">Get in Touch</span>
+              <h2 className="font-display text-[28px] sm:text-[36px] md:text-[52px] font-bold leading-[1.05] tracking-[-0.04em] mb-4 sm:mb-5">
                 <span className="text-content-primary">Have a </span><span className="text-gradient">project</span><br /><span className="text-content-primary">in mind?</span>
               </h2>
-              <p className="text-content-secondary text-[16px] leading-relaxed mb-10 max-w-md">Let's create something exceptional together. Fill out the form and I'll get back to you within 24 hours.</p>
+              <p className="text-content-secondary text-[14px] sm:text-[16px] leading-relaxed mb-8 sm:mb-10 max-w-md">Let's create something exceptional together. Fill out the form and I'll get back to you within 24 hours.</p>
             </ScrollReveal>
 
             <ScrollReveal delay={0.1}>
@@ -233,7 +233,7 @@ export default function CTA() {
 
           {/* Form */}
           <ScrollReveal direction="right" delay={0.1} scale>
-            <form onSubmit={handleSubmit} className="glass glow-border rounded-[24px] p-7 md:p-10 space-y-5">
+            <form onSubmit={handleSubmit} className="glass glow-border rounded-[20px] sm:rounded-[24px] p-5 sm:p-7 md:p-10 space-y-4 sm:space-y-5">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="text-content-muted text-[11px] uppercase tracking-wider font-semibold mb-2.5 block">
