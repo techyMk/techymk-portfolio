@@ -147,7 +147,7 @@ export default function Navbar() {
               data-hover
             >
               <img src="assets/favicon.png" alt="TechyMk" className="w-7 h-7 sm:w-8 sm:h-8 rounded-full object-cover" />
-              <span className="text-content-secondary text-[11px] sm:text-[13px] font-medium"><span className="hidden sm:inline">Available for freelance works</span><span className="sm:hidden">Available</span></span>
+              <span className="text-content-secondary text-[11px] sm:text-[13px] font-medium whitespace-nowrap">Available for freelance works</span>
               <span className="relative flex h-[7px] w-[7px] ml-1">
                 <span className="animate-ping absolute inline-flex h-[14px] w-[14px] -top-[3.5px] -left-[3.5px] rounded-full bg-emerald-400 opacity-40" />
                 <span className="relative inline-flex rounded-full h-[7px] w-[7px] bg-emerald-500 shadow-md shadow-emerald-500/30" />
