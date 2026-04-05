@@ -6,8 +6,8 @@ import ScrollReveal from './ScrollReveal';
 
 // EmailJS config — replace these with your actual IDs
 const EMAILJS_SERVICE_ID = 'service_fskzghf';
-const EMAILJS_TEMPLATE_ID = 'template_54zw29l';       // notification to you
-const EMAILJS_AUTOREPLY_ID = 'template_c68shvp';     // auto-reply to sender
+const EMAILJS_TEMPLATE_ID = 'template_3w4t5zg';       // notification to you
+const EMAILJS_AUTOREPLY_ID = 'template_0f3mygn';     // auto-reply to sender
 const EMAILJS_PUBLIC_KEY = 'x4r8XNnu0wGlyIrYG';
 
 const budgetOptions = [
