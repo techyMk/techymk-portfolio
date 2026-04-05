@@ -86,11 +86,13 @@ function DragLetter({ ch, index, inView, isGradient, onFling, onDragActivity, re
    INTERACTIVE HEADING — "LET'S CREATE."
    per-letter drag with fling sparks + click to explode all
    ═══════════════════════════════════════════════════ */
-const HEADING = "LET'S CREATE.";
-const GRADIENT_START = 6;
+const HEADINGS = ["LET'S TALK.", "LET'S BUILD.", "LET'S CONNECT."];
 
 function InteractiveHeading({ inView }) {
-  const chars = useMemo(() => HEADING.split(''), []);
+  const [headingIdx, setHeadingIdx] = useState(0);
+  const currentHeading = HEADINGS[headingIdx];
+  const chars = useMemo(() => currentHeading.split(''), [currentHeading]);
+  const gradientStart = 6; // "LET'S " is always 6 chars, the action word gets the gradient
   const [sparks, setSparks] = useState([]);
   const containerRef = useRef(null);
 
@@ -110,13 +112,19 @@ function InteractiveHeading({ inView }) {
     return () => { if (resetTimerRef.current) clearTimeout(resetTimerRef.current); };
   }, []);
 
-  // Explode all on double-click
+  // Explode all on double-click → cycle to next heading
   const [exploded, setExploded] = useState(false);
   const [explodeOffsets, setExplodeOffsets] = useState(null);
   const [burstKey, setBurstKey] = useState(0);
+  const [burstPos, setBurstPos] = useState({ x: 0, y: 0 });
 
-  const handleDoubleClick = useCallback(() => {
+  const handleDoubleClick = useCallback((e) => {
     if (exploded) return;
+    // Get click position relative to container
+    const rect = containerRef.current?.getBoundingClientRect();
+    if (rect) {
+      setBurstPos({ x: e.clientX - rect.left, y: e.clientY - rect.top });
+    }
     const isMobile = window.innerWidth < 768;
     const range = isMobile ? 160 : 500;
     const rangeY = isMobile ? 140 : 300;
@@ -128,7 +136,13 @@ function InteractiveHeading({ inView }) {
     setExplodeOffsets(offsets);
     setExploded(true);
     setBurstKey((k) => k + 1);
-    setTimeout(() => { setExplodeOffsets(null); setExploded(false); }, 2400);
+    // After explosion fades, switch to next heading
+    setTimeout(() => {
+      setHeadingIdx((idx) => (idx + 1) % HEADINGS.length);
+      setExplodeOffsets(null);
+      setExploded(false);
+      setResetSignal((s) => s + 1);
+    }, 1800);
   }, [exploded, chars]);
 
   // Spark burst when a letter is flung
@@ -159,7 +173,8 @@ function InteractiveHeading({ inView }) {
           <>
             <motion.div
               key={`ring-${burstKey}`}
-              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-accent/40 pointer-events-none z-20"
+              className="absolute rounded-full border-2 border-accent/40 pointer-events-none z-20"
+              style={{ left: burstPos.x, top: burstPos.y, translateX: '-50%', translateY: '-50%' }}
               initial={{ width: 0, height: 0, opacity: 0.8 }}
               animate={{ width: 800, height: 800, opacity: 0 }}
               transition={{ duration: 0.9, ease: 'easeOut' }}
@@ -170,8 +185,8 @@ function InteractiveHeading({ inView }) {
               return (
                 <motion.div
                   key={`boom-${burstKey}-${i}`}
-                  className="absolute left-1/2 top-1/2 rounded-full pointer-events-none z-20"
-                  style={{ width: 3 + Math.random() * 6, height: 3 + Math.random() * 6, backgroundColor: `rgba(var(--c-accent), ${0.4 + Math.random() * 0.6})` }}
+                  className="absolute rounded-full pointer-events-none z-20"
+                  style={{ left: burstPos.x, top: burstPos.y, width: 3 + Math.random() * 6, height: 3 + Math.random() * 6, backgroundColor: `rgba(var(--c-accent), ${0.4 + Math.random() * 0.6})` }}
                   initial={{ x: 0, y: 0, opacity: 1 }}
                   animate={{ x: Math.cos(angle) * dist, y: Math.sin(angle) * dist, opacity: 0, scale: 0 }}
                   transition={{ duration: 0.6, ease: 'easeOut' }}
@@ -198,30 +213,34 @@ function InteractiveHeading({ inView }) {
       </AnimatePresence>
 
       {/* Letters */}
-      <div className="flex flex-wrap">
+      <div className="flex flex-wrap items-baseline">
         {chars.map((ch, i) => {
+          // Space → fixed gap, not draggable
+          if (ch === ' ') {
+            return <span key={`${headingIdx}-sp-${i}`} className="w-[0.25em] font-display text-[clamp(38px,9.5vw,110px)]" />;
+          }
           const off = explodeOffsets?.[i];
           if (off) {
             return (
               <motion.span
                 key={i}
                 className={`font-display font-black uppercase leading-[0.92] tracking-[-0.04em] text-[clamp(38px,9.5vw,110px)] inline-block select-none ${
-                  i >= GRADIENT_START ? 'text-gradient' : 'text-content-primary'
+                  i >= gradientStart ? 'text-gradient' : 'text-content-primary'
                 }`}
                 animate={{ x: [0, off.x], y: [0, off.y], rotate: [0, off.r], opacity: [1, 0], scale: [1, 0.4], filter: ['blur(0px)', 'blur(6px)'] }}
                 transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1], delay: i * 0.02 }}
               >
-                {ch === ' ' ? '\u00A0' : ch}
+                {ch}
               </motion.span>
             );
           }
           return (
             <DragLetter
-              key={i}
+              key={`${headingIdx}-${i}`}
               ch={ch}
               index={i}
               inView={inView}
-              isGradient={i >= GRADIENT_START}
+              isGradient={i >= gradientStart}
               onFling={handleFling}
               onDragActivity={handleDragActivity}
               resetSignal={resetSignal}

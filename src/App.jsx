@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import Lenis from 'lenis';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowUp, Coffee } from 'lucide-react';
+import Loader from './components/Loader';
 import Cursor from './components/Cursor';
 import FloatingTech from './components/FloatingTech';
 import Navbar from './components/Navbar';
@@ -79,7 +80,33 @@ function BuyMeCoffee() {
 }
 
 export default function App() {
+  const [loading, setLoading] = useState(true);
+
+  const handleLoaderComplete = useCallback(() => setLoading(false), []);
+
+  // Safety fallback — force remove loader after 4s no matter what
   useEffect(() => {
+    const fallback = setTimeout(() => setLoading(false), 4000);
+    return () => clearTimeout(fallback);
+  }, []);
+
+  // Scroll to top on refresh
+  useEffect(() => {
+    if (loading) {
+      window.history.scrollRestoration = 'manual';
+      window.scrollTo(0, 0);
+      if (window.location.hash) {
+        window.history.replaceState(null, '', window.location.pathname);
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    if (loading) {
+      document.body.style.overflow = 'hidden';
+      return () => { document.body.style.overflow = ''; };
+    }
+    document.body.style.overflow = '';
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -87,17 +114,38 @@ export default function App() {
     });
     function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
     requestAnimationFrame(raf);
-    return () => lenis.destroy();
-  }, []);
+
+    // Smooth scroll for anchor links
+    const handleAnchorClick = (e) => {
+      const target = e.target.closest('a[href^="#"]');
+      if (!target) return;
+      const id = target.getAttribute('href');
+      if (!id || id === '#') return;
+      const el = document.querySelector(id);
+      if (el) {
+        e.preventDefault();
+        lenis.scrollTo(el, { offset: -20 });
+      }
+    };
+    document.addEventListener('click', handleAnchorClick);
+
+    return () => {
+      document.removeEventListener('click', handleAnchorClick);
+      lenis.destroy();
+    };
+  }, [loading]);
 
   return (
     <div className="grain min-h-screen bg-bg font-body relative">
+      <AnimatePresence>
+        {loading && <Loader key="loader" onComplete={handleLoaderComplete} />}
+      </AnimatePresence>
       <div className="mesh-bg" />
       <FloatingTech />
       <Cursor />
       <Navbar />
       <main className="relative z-[1]">
-        <Hero />
+        <Hero ready={!loading} />
         <Services />
         <About />
         <Projects />

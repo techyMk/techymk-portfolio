@@ -46,9 +46,10 @@ function CharReveal({ children, delay = 0, inView = false }) {
 
 const marqueeItems = ['React', 'JavaScript', 'Figma', 'UI/UX', 'Python', 'Java', 'C++', 'Git', 'Next.js', 'TypeScript', 'Tailwind', 'MongoDB'];
 
-export default function Hero() {
+export default function Hero({ ready = true }) {
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true });
+  const rawInView = useInView(ref, { once: true });
+  const inView = rawInView && ready;
 
   // Hi(2.5s) → wave twice seamlessly(5s) → Hi(2.5s) → ...
   const [showWave, setShowWave] = useState(false);
@@ -103,7 +104,7 @@ export default function Hero() {
               >
                 Techy MK
               </motion.p>
-              <h1 className="font-display font-black text-content-primary uppercase leading-none tracking-[-0.04em] text-[clamp(32px,10vw,80px)] sm:text-[clamp(36px,8vw,80px)] lg:text-[clamp(36px,5.5vw,80px)]">
+              <h1 className="font-display font-black text-content-primary uppercase leading-none tracking-[-0.04em] text-[clamp(24px,7vw,80px)] sm:text-[clamp(36px,8vw,80px)] lg:text-[clamp(36px,4.8vw,76px)]">
                 <CharReveal delay={0.5} inView={inView}>WEBSITE</CharReveal>
               </h1>
             </div>
@@ -156,7 +157,7 @@ export default function Hero() {
           {/* Right column — flush left (towards image), tagline below DEVELOPER's right edge */}
           <motion.div className="relative min-w-0 flex items-center justify-center lg:justify-start order-3 lg:order-none" style={{ x: textPar }}>
             <div className="relative inline-block">
-              <h1 className="font-display font-black text-content-primary uppercase leading-none tracking-[-0.04em] text-[clamp(32px,10vw,80px)] sm:text-[clamp(36px,8vw,80px)] lg:text-[clamp(36px,5.5vw,80px)]">
+              <h1 className="font-display font-black text-content-primary uppercase leading-none tracking-[-0.04em] text-[clamp(24px,7vw,80px)] sm:text-[clamp(36px,8vw,80px)] lg:text-[clamp(36px,4.8vw,76px)]">
                 <CharReveal delay={0.8} inView={inView}>DEVELOPER</CharReveal>
               </h1>
               <motion.p

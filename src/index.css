@@ -39,6 +39,7 @@
 
 /* ── Base ── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+img { -webkit-user-drag: none; user-select: none; -moz-user-select: none; -webkit-user-select: none; pointer-events: auto; }
 
 html { scrollbar-width: thin; scrollbar-color: rgba(var(--c-border-hover), 1) rgba(var(--c-bg), 1); }
 ::-webkit-scrollbar { width: 4px; }

@@ -19,17 +19,26 @@ function ThemeSwitch() {
   );
 }
 
-/* Nav link with subtle 3D tilt on hover */
-function NavLink({ href, children }) {
+/* Nav link with active state */
+function NavLink({ href, children, active }) {
   return (
     <motion.a
       href={href}
-      className="px-3 py-1.5 rounded-full text-[13px] text-content-secondary hover:text-content-primary transition-colors duration-200 inline-block"
+      className={`relative px-3 py-1.5 rounded-full text-[13px] transition-colors duration-200 inline-block ${
+        active ? 'text-accent' : 'text-content-secondary hover:text-content-primary'
+      }`}
       style={{ perspective: 400 }}
       whileHover={{ rotateX: -8, rotateY: 4, scale: 1.06 }}
       transition={{ type: 'spring', stiffness: 300, damping: 18 }}
     >
-      {children}
+      {active && (
+        <motion.span
+          className="absolute inset-0 rounded-full bg-accent/[0.08]"
+          layoutId="navActive"
+          transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+        />
+      )}
+      <span className="relative z-10">{children}</span>
     </motion.a>
   );
 }
@@ -45,7 +54,9 @@ function RippleButton({ href, children, className = '', onClick, rippleClass = '
     const y = e.clientY - rect.top;
     const dx = Math.max(x, rect.width - x);
     const dy = Math.max(y, rect.height - y);
-    const size = Math.ceil(Math.sqrt(dx * dx + dy * dy) * 3) + 60;
+    const farthestX = Math.max(x, rect.width - x);
+    const farthestY = Math.max(y, rect.height - y);
+    const size = Math.ceil(Math.sqrt(farthestX * farthestX + farthestY * farthestY) * 2.5);
     setRipple({ x, y, size, key: Date.now() });
   }, []);
 
@@ -82,7 +93,39 @@ function RippleButton({ href, children, className = '', onClick, rippleClass = '
 export default function Navbar() {
   const [mode, setMode] = useState('nav');
   const [menuOpen, setMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('#home');
   const lastScroll = useRef(0);
+
+  // Track which section is in view
+  useEffect(() => {
+    const sectionIds = ['home', 'services', 'about', 'projects'];
+    const visibleSections = new Set();
+    const observers = [];
+
+    sectionIds.forEach((id) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) visibleSections.add(id);
+          else visibleSections.delete(id);
+
+          if (visibleSections.size === 0) {
+            setActiveSection('');
+          } else {
+            // Pick the last one in DOM order that's visible
+            const active = sectionIds.filter((s) => visibleSections.has(s)).pop();
+            if (active) setActiveSection(`#${active}`);
+          }
+        },
+        { rootMargin: '-40% 0px -55% 0px' }
+      );
+      observer.observe(el);
+      observers.push(observer);
+    });
+
+    return () => observers.forEach((o) => o.disconnect());
+  }, []);
 
   useEffect(() => {
     const threshold = 300;
@@ -119,7 +162,7 @@ export default function Navbar() {
 
               <div className="hidden md:flex items-center">
                 {navLinks.map((l) => (
-                  <NavLink key={l.label} href={l.href}>{l.label}</NavLink>
+                  <NavLink key={l.label} href={l.href} active={activeSection === l.href}>{l.label}</NavLink>
                 ))}
               </div>
 

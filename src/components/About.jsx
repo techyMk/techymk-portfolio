@@ -19,7 +19,7 @@ function Counter({ target, suffix = '' }) {
 const stats = [
   { val: 20, suf: '+', label: 'Projects' },
   { val: 14, suf: '+', label: 'Technologies' },
-  { val: 100, suf: '%', label: 'Passion' },
+  { val: 2, suf: '+', label: 'Years Exp.' },
 ];
 
 const skills = [

@@ -4,10 +4,9 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import ScrollReveal from './ScrollReveal';
 
 const data = [
-  { id: 1, q: 'Duncan truly understood my vision and turned it into impactful designs. Our conversion rate doubled within three months.', name: 'John Harris', role: 'Marketing Director, Vanta Co.', img: 'https://framerusercontent.com/images/RTNUbNmEH3Lg1VzA3NOYHdp3bHQ.jpg?width=400&height=400' },
-  { id: 2, q: 'He took the time to understand our goals and delivered a design that resonated perfectly with our audience. Truly world-class.', name: 'Michael Lee', role: 'Product Manager, Nexus Labs', img: 'https://framerusercontent.com/images/ZbUvwGb7xhhwmovo3t9YO4bAIGs.jpg?width=400&height=400' },
-  { id: 3, q: 'His design skills are unmatched. He transformed my rough ideas into a high-performing, visually striking website.', name: 'Sarah Johnson', role: 'CEO, Bloom Studio', img: 'https://framerusercontent.com/images/hleE21gbHw2Y29KULoer3tF8.jpg?width=400&height=400' },
-  { id: 4, q: 'As a startup founder, I needed someone who could move fast without cutting corners. Duncan delivered beyond expectations.', name: 'Laura Bennett', role: 'Founder, Bennett & Co.', img: 'https://framerusercontent.com/images/qrxY8NagVO40NBrdhFEGgFR3PYY.jpg?width=620&height=630' },
+  { id: 1, q: 'Manikandan delivered exactly what we envisioned — a sleek, professional website that truly represents our AI brand. His attention to detail in both design and development was exceptional. He didn\'t just build a site, he crafted our entire digital identity.', name: 'Karthik Kannan Ravi', role: 'Founder & CEO, Embsys Intelligence', img: 'assets/kk.jpg' },
+  { id: 2, q: 'We needed someone who could understand our 40-year legacy and translate it into a modern web presence. Manikandan brought fresh ideas while respecting our brand values. His work ethic and responsiveness made the entire process smooth.', name: 'Surenthar', role: 'Manager, Leoplast', img: 'https://api.dicebear.com/9.x/lorelei/svg?seed=Surenthar&backgroundColor=0ea5e9&beard=variant02' },
+  { id: 3, q: 'Manikandan designed my channel\'s branding and it completely transformed my online presence. He understands what works for content creators — clean, eye-catching visuals that stand out. Highly recommend him for any creative work.', name: 'Balachandran', role: 'YouTuber, BC Gamer', img: 'https://api.dicebear.com/9.x/lorelei/svg?seed=BCGamer&backgroundColor=f43f5e&beard=variant01' },
 ];
 
 export default function Testimonials() {

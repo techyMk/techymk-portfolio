@@ -144,10 +144,22 @@ function RippleSubmit({ isValid, status }) {
 }
 
 export default function CTA() {
-  const [form, setForm] = useState({ name: '', email: '', subject: '', budget: '', customBudget: '', message: '' });
+  const [form, setForm] = useState(() => {
+    const saved = typeof window !== 'undefined' ? localStorage.getItem('contact_user') : null;
+    const user = saved ? JSON.parse(saved) : {};
+    return { name: user.name || '', email: user.email || '', subject: '', budget: '', customBudget: '', message: '' };
+  });
   const [status, setStatus] = useState('idle'); // idle | sending | sent | error
 
-  const set = (field) => (e) => setForm(f => ({ ...f, [field]: e.target ? e.target.value : e }));
+  const set = (field) => (e) => {
+    const val = e.target ? e.target.value : e;
+    setForm(f => ({ ...f, [field]: val }));
+    // Persist name & email for next visit
+    if (field === 'name' || field === 'email') {
+      const saved = JSON.parse(localStorage.getItem('contact_user') || '{}');
+      localStorage.setItem('contact_user', JSON.stringify({ ...saved, [field]: val }));
+    }
+  };
 
   const isValid = form.name && form.email && form.message;
 
@@ -157,7 +169,7 @@ export default function CTA() {
 
     setStatus('sending');
 
-    const budget = form.budget === 'custom' ? form.customBudget : form.budget;
+    const budget = form.budget === 'custom' ? `$${form.customBudget}` : form.budget;
     const templateParams = {
       from_name: form.name,
       from_email: form.email,
@@ -272,14 +284,17 @@ export default function CTA() {
                     <label className="text-content-muted text-[11px] uppercase tracking-wider font-semibold mb-2.5 block">
                       Your Budget <span className="text-accent">*</span>
                     </label>
-                    <input
-                      type="text"
-                      placeholder="e.g. $3,000 or Hourly rate"
-                      className="form-input"
-                      value={form.customBudget}
-                      onChange={set('customBudget')}
-                      required
-                    />
+                    <div className="flex items-center form-input !p-0 overflow-hidden">
+                      <span className="pl-[18px] text-content-primary text-[14px] select-none">$</span>
+                      <input
+                        type="text"
+                        placeholder="3,000 or Hourly rate"
+                        className="flex-1 bg-transparent border-none outline-none text-content-primary text-[14px] py-[14px] pr-[18px] pl-2 placeholder:text-content-muted"
+                        value={form.customBudget}
+                        onChange={set('customBudget')}
+                        required
+                      />
+                    </div>
                   </motion.div>
                 )}
               </AnimatePresence>
