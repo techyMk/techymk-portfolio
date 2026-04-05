@@ -11,7 +11,7 @@ function RippleButton({ href, children, className = '', rippleClass = 'bg-white/
     const y = e.clientY - rect.top;
     const dx = Math.max(x, rect.width - x);
     const dy = Math.max(y, rect.height - y);
-    const size = Math.ceil(Math.sqrt(dx * dx + dy * dy) * 2.5) + 40;
+    const size = Math.ceil(Math.sqrt(dx * dx + dy * dy) * 3) + 60;
     setRipple({ x, y, size, key: Date.now() });
   }, []);
   const handleLeave = useCallback(() => setRipple(null), []);

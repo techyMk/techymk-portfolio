@@ -1,7 +1,14 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Send, ArrowUpRight, CheckCircle, ChevronDown, AlertCircle } from 'lucide-react';
+import emailjs from '@emailjs/browser';
 import ScrollReveal from './ScrollReveal';
+
+// EmailJS config — replace these with your actual IDs
+const EMAILJS_SERVICE_ID = 'service_fskzghf';
+const EMAILJS_TEMPLATE_ID = 'template_54zw29l';       // notification to you
+const EMAILJS_AUTOREPLY_ID = 'template_c68shvp';     // auto-reply to sender
+const EMAILJS_PUBLIC_KEY = 'x4r8XNnu0wGlyIrYG';
 
 const budgetOptions = [
   { label: 'Select a range', value: '' },
@@ -85,7 +92,7 @@ function RippleSubmit({ isValid, status }) {
     const y = e.clientY - rect.top;
     const dx = Math.max(x, rect.width - x);
     const dy = Math.max(y, rect.height - y);
-    const size = Math.ceil(Math.sqrt(dx * dx + dy * dy) * 2) + 20;
+    const size = Math.ceil(Math.sqrt(dx * dx + dy * dy) * 3) + 60;
     setRipple({ x, y, size, key: Date.now() });
   }, [isValid, status]);
 
@@ -151,31 +158,24 @@ export default function CTA() {
     setStatus('sending');
 
     const budget = form.budget === 'custom' ? form.customBudget : form.budget;
-
-    const formData = new FormData();
-    formData.append('name', form.name);
-    formData.append('email', form.email);
-    formData.append('subject', form.subject || `Portfolio inquiry from ${form.name}`);
-    formData.append('budget', budget || 'Not specified');
-    formData.append('message', form.message);
-    formData.append('_subject', `New inquiry from ${form.name}`);
-    formData.append('_captcha', 'false');
-    formData.append('_template', 'table');
+    const templateParams = {
+      from_name: form.name,
+      from_email: form.email,
+      subject: form.subject || `Portfolio inquiry from ${form.name}`,
+      budget: budget || 'Not specified',
+      message: form.message,
+    };
 
     try {
-      const res = await fetch('https://formsubmit.co/ajax/techymk.dev@gmail.com', {
-        method: 'POST',
-        body: formData,
-      });
+      // Send notification email to you
+      await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams, EMAILJS_PUBLIC_KEY);
 
-      if (res.ok) {
-        setStatus('sent');
-        setForm({ name: '', email: '', subject: '', budget: '', customBudget: '', message: '' });
-        setTimeout(() => setStatus('idle'), 5000);
-      } else {
-        setStatus('error');
-        setTimeout(() => setStatus('idle'), 4000);
-      }
+      // Send auto-reply to the sender
+      await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_AUTOREPLY_ID, templateParams, EMAILJS_PUBLIC_KEY);
+
+      setStatus('sent');
+      setForm({ name: '', email: '', subject: '', budget: '', customBudget: '', message: '' });
+      setTimeout(() => setStatus('idle'), 5000);
     } catch {
       setStatus('error');
       setTimeout(() => setStatus('idle'), 4000);

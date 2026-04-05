@@ -149,6 +149,23 @@ body {
 .glow-border:hover::before { opacity: 1; }
 @keyframes rotateBorder { to { --angle: 360deg; } }
 
+/* ── Featured project border — always-active edge glow ── */
+.featured-border { position: relative; isolation: isolate; }
+.featured-border::before {
+  content: ''; position: absolute; inset: -1px; border-radius: inherit; padding: 1.5px; z-index: -1;
+  background: conic-gradient(from var(--angle), rgba(var(--c-accent), 0.8) 0%, rgba(217, 70, 239, 0.6) 8%, transparent 25%, transparent 75%, rgba(236, 72, 153, 0.6) 92%, rgba(var(--c-accent), 0.8) 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+  animation: rotateBorder 4s linear infinite;
+  opacity: 1;
+}
+.featured-border::after {
+  content: ''; position: absolute; inset: -8px; border-radius: inherit; z-index: -2;
+  background: conic-gradient(from var(--angle), rgba(var(--c-accent), 0.15) 0%, rgba(217, 70, 239, 0.1) 8%, transparent 25%, transparent 75%, rgba(236, 72, 153, 0.1) 92%, rgba(var(--c-accent), 0.15) 100%);
+  filter: blur(12px);
+  animation: rotateBorder 4s linear infinite;
+}
+
 /* ── Form ── */
 .form-input {
   width: 100%; padding: 14px 18px; border-radius: 14px;

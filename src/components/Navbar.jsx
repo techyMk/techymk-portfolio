@@ -45,7 +45,7 @@ function RippleButton({ href, children, className = '', onClick, rippleClass = '
     const y = e.clientY - rect.top;
     const dx = Math.max(x, rect.width - x);
     const dy = Math.max(y, rect.height - y);
-    const size = Math.ceil(Math.sqrt(dx * dx + dy * dy) * 2.5) + 40;
+    const size = Math.ceil(Math.sqrt(dx * dx + dy * dy) * 3) + 60;
     setRipple({ x, y, size, key: Date.now() });
   }, []);
 
@@ -138,7 +138,7 @@ export default function Navbar() {
           ) : (
             <motion.div
               key="badge"
-              className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-bg-card/60 backdrop-blur-xl border border-border/30 cursor-pointer"
+              className="flex items-center gap-2 pl-3 pr-4 sm:pl-4 sm:pr-5 py-2.5 rounded-full bg-bg-card/60 backdrop-blur-xl border border-border/30 cursor-pointer"
               initial={{ opacity: 0, y: -20, scale: 0.8, filter: 'blur(8px)' }}
               animate={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
               exit={{ opacity: 0, y: -12, scale: 0.9, filter: 'blur(6px)' }}
@@ -146,10 +146,10 @@ export default function Navbar() {
               onClick={() => setMenuOpen(true)}
               data-hover
             >
-              <img src="assets/favicon.png" alt="TechyMk" className="w-7 h-7 sm:w-8 sm:h-8 rounded-full object-cover" />
+              <img src="assets/favicon.png" alt="TechyMk" className="w-7 h-7 sm:w-8 sm:h-8 rounded-full object-cover flex-shrink-0" />
               <span className="text-content-secondary text-[11px] sm:text-[13px] font-medium whitespace-nowrap">Available for freelance works</span>
-              <span className="relative flex h-[7px] w-[7px] ml-1">
-                <span className="animate-ping absolute inline-flex h-[14px] w-[14px] -top-[3.5px] -left-[3.5px] rounded-full bg-emerald-400 opacity-40" />
+              <span className="relative flex-shrink-0 flex items-center justify-center w-4 h-4">
+                <span className="animate-ping absolute inline-flex h-3 w-3 rounded-full bg-emerald-400 opacity-40" />
                 <span className="relative inline-flex rounded-full h-[7px] w-[7px] bg-emerald-500 shadow-md shadow-emerald-500/30" />
               </span>
             </motion.div>
