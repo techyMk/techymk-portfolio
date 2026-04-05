@@ -306,7 +306,8 @@ function Terminal({ inView }) {
   const [busy, setBusy] = useState(false);
   const scrollRef = useRef(null);
   const inputRef = useRef(null);
-  const surpriseIdx = useRef(0);
+  const surpriseIdx = useRef(-1);
+  const usedSurprises = useRef([]);
   const cancelRef = useRef(0);
 
   const scroll = useCallback(() => {
@@ -419,8 +420,13 @@ function Terminal({ inView }) {
 
       case 'surprise':
       case 'random': {
-        const s = SURPRISES[surpriseIdx.current % SURPRISES.length];
-        surpriseIdx.current++;
+        // Reset pool when all have been shown
+        if (usedSurprises.current.length >= SURPRISES.length) usedSurprises.current = [];
+        const remaining = SURPRISES.map((_, i) => i).filter((i) => !usedSurprises.current.includes(i));
+        const randIdx = remaining[Math.floor(Math.random() * remaining.length)];
+        usedSurprises.current.push(randIdx);
+        surpriseIdx.current = randIdx;
+        const s = SURPRISES[randIdx];
         await typeAndAdd({ style: 'response', text: s });
         break;
       }

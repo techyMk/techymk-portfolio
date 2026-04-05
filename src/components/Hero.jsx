@@ -187,9 +187,15 @@ export default function Hero({ ready = true }) {
           </RippleButton>
         </motion.div>
 
-        {/* Scroll */}
-        <motion.div className="flex justify-center mt-4 sm:mt-6" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.7 }}>
-          <motion.div className="w-[1px] h-[35px] bg-gradient-to-b from-accent/40 via-content-muted/15 to-transparent" animate={{ scaleY: [0.3, 1, 0.3], opacity: [0.3, 0.8, 0.3] }} transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }} />
+        {/* Scroll indicator — mouse icon */}
+        <motion.div className="flex flex-col items-center gap-2 mt-4 sm:mt-6" initial={{ opacity: 0 }} animate={inView ? { opacity: 1 } : {}} transition={{ delay: 1.7 }}>
+          <div className="w-[22px] h-[34px] rounded-full border-2 border-content-muted/25 flex justify-center pt-2">
+            <motion.div
+              className="w-[3px] h-[6px] rounded-full bg-accent/60"
+              animate={{ y: [0, 10, 0], opacity: [0.8, 0.2, 0.8] }}
+              transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+            />
+          </div>
         </motion.div>
       </div>
 

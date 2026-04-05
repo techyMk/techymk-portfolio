@@ -4,12 +4,12 @@ import { ArrowUpRight, ExternalLink } from 'lucide-react';
 import ScrollReveal from './ScrollReveal';
 
 const projects = [
-  { id: 1, title: 'Embsys AI', desc: 'Full website design & development for an agentic AI visual intelligence company — including brand identity, logo, and UI/UX.', tags: ['Web', 'UI/UX', 'Branding', 'AI'], gradient: 'from-violet-600 via-purple-500 to-fuchsia-500', featured: true, link: 'https://embsysai.com/', icon: 'embsys' },
-  { id: 2, title: 'Inko', desc: 'A browser-based paint editor with brushes, colors, and layers — built entirely with vanilla JavaScript.', tags: ['JavaScript', 'Canvas', 'CSS'], gradient: 'from-cyan-500 via-blue-600 to-indigo-600', icon: 'inko', link: 'https://inko-techymk.netlify.app/' },
+  { id: 1, title: 'Embsys AI', desc: 'Full website design & development for an agentic AI visual intelligence company — including brand identity, logo, and UI/UX.', tags: ['Web', 'UI/UX', 'Branding', 'AI'], gradient: 'from-violet-600 via-purple-500 to-fuchsia-500', featured: true, link: 'https://embsysai.com/', img: 'assets/embsys.png' },
+  { id: 2, title: 'Inko', desc: 'A browser-based paint editor with brushes, colors, and layers — built entirely with vanilla JavaScript.', tags: ['JavaScript', 'Canvas', 'CSS'], gradient: 'from-cyan-500 via-blue-600 to-indigo-600', link: 'https://inko-techymk.netlify.app/', img: 'assets/inko.png' },
   { id: 3, title: 'Leoplast', desc: 'Designing & developing a complete web presence for Tamil Nadu\'s premier plumbing manufacturer with 40 years of industry leadership.', tags: ['Web', 'UI/UX', 'Branding'], gradient: 'from-rose-500 via-pink-600 to-purple-600', featured: true, building: true, icon: 'leoplast' },
-  { id: 4, title: 'Tagzo', desc: 'QR code generator with instant creation, custom styling, and one-click download.', tags: ['JavaScript', 'CSS', 'Web APIs'], gradient: 'from-emerald-500 via-teal-600 to-cyan-600', icon: 'tagzo', link: 'https://tagzo-techymk.vercel.app/' },
-  { id: 5, title: 'Pixo', desc: 'Feature-rich image editor with filters, cropping, adjustments, and export — right in the browser.', tags: ['JavaScript', 'Canvas', 'CSS'], gradient: 'from-amber-500 via-orange-500 to-red-500', icon: 'pixo', link: 'https://pixo-techymk.netlify.app/' },
-  { id: 6, title: 'Quizzy', desc: 'Interactive quiz app with timed questions, score tracking, and dynamic categories.', tags: ['JavaScript', 'CSS', 'HTML'], gradient: 'from-indigo-500 via-violet-600 to-purple-700', icon: 'quizzy', link: 'https://quizzy-techy-mk.vercel.app/' },
+  { id: 4, title: 'Tagzo', desc: 'QR code generator with instant creation, custom styling, and one-click download.', tags: ['JavaScript', 'CSS', 'Web APIs'], gradient: 'from-emerald-500 via-teal-600 to-cyan-600', link: 'https://tagzo-techymk.vercel.app/', img: 'assets/tagzo.png' },
+  { id: 5, title: 'Pixo', desc: 'Feature-rich image editor with filters, cropping, adjustments, and export — right in the browser.', tags: ['JavaScript', 'Canvas', 'CSS'], gradient: 'from-amber-500 via-orange-500 to-red-500', link: 'https://pixo-techymk.netlify.app/', img: 'assets/pixo.png' },
+  { id: 6, title: 'Quizzy', desc: 'Interactive quiz app with timed questions, score tracking, and dynamic categories.', tags: ['JavaScript', 'CSS', 'HTML'], gradient: 'from-indigo-500 via-violet-600 to-purple-700', link: 'https://quizzy-techy-mk.vercel.app/', img: 'assets/quizzy.png' },
 ];
 
 /* ── Themed cover art — bold, app-icon-quality SVG illustrations ── */
@@ -102,49 +102,70 @@ function CoverArt({ icon, hovered }) {
       );
 
     case 'leoplast':
-      // Factory building + pipe schematic
+      // Under construction — crane + building + code brackets
       return (
         <div className={wrap}>
-          <motion.svg viewBox="0 0 220 140" className="w-[75%] h-[85%]" fill="none" animate={hovered ? { scale: 1.05 } : { scale: 1 }} transition={{ duration: 0.5 }}>
-            {/* Factory building */}
-            <rect x="15" y="40" width="60" height="70" rx="3" stroke="white" strokeWidth="1.2" opacity="0.12" fill="white" fillOpacity="0.025" />
-            <polygon points="15,40 45,18 75,40" stroke="white" strokeWidth="1" opacity="0.1" fill="white" fillOpacity="0.02" />
-            {/* Windows */}
-            <rect x="25" y="52" width="12" height="12" rx="1.5" fill="white" opacity="0.06" />
-            <rect x="45" y="52" width="12" height="12" rx="1.5" fill="white" opacity="0.06" />
-            <rect x="25" y="72" width="12" height="12" rx="1.5" fill="white" opacity="0.06" />
-            <rect x="45" y="72" width="12" height="12" rx="1.5" fill="white" opacity="0.06" />
-            {/* Door */}
-            <rect x="35" y="92" width="16" height="18" rx="2" stroke="white" strokeWidth="0.8" opacity="0.1" />
-            {/* Chimney with smoke */}
-            <rect x="55" y="20" width="8" height="20" fill="white" opacity="0.08" />
-            <motion.g animate={{ y: [0, -8], opacity: [0.1, 0] }} transition={{ duration: 2.5, repeat: Infinity }}>
-              <circle cx="59" cy="16" r="4" fill="white" opacity="0.08" />
-              <circle cx="54" cy="10" r="3" fill="white" opacity="0.06" />
-              <circle cx="62" cy="6" r="5" fill="white" opacity="0.04" />
-            </motion.g>
-            {/* Pipe network from factory */}
-            <path d="M75 60 H110" stroke="white" strokeWidth="5" strokeLinecap="round" opacity="0.1" />
-            <path d="M110 60 V85 H155" stroke="white" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" opacity="0.1" />
-            <path d="M110 60 H160 V40 H200" stroke="white" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" opacity="0.1" />
-            {/* Joints */}
-            {[[110, 60], [110, 85], [155, 85], [160, 40], [160, 60]].map(([x, y], i) => (
-              <circle key={i} cx={x} cy={y} r="4" fill="white" opacity="0.06" stroke="white" strokeWidth="1" strokeOpacity="0.12" />
+          <motion.svg viewBox="0 0 240 140" className="w-[78%] h-[90%]" fill="none" animate={hovered ? { scale: 1.04 } : { scale: 1 }} transition={{ duration: 0.5 }}>
+            {/* Blueprint grid */}
+            {Array.from({ length: 12 }).map((_, i) => (
+              <line key={`v${i}`} x1={20 * i} y1="0" x2={20 * i} y2="140" stroke="white" strokeWidth="0.3" opacity="0.03" />
             ))}
-            {/* Valve wheel */}
-            <motion.g animate={hovered ? { rotate: 180 } : { rotate: 0 }} transition={{ duration: 0.8 }} style={{ transformOrigin: '135px 60px' }}>
-              <circle cx="135" cy="60" r="6" stroke="white" strokeWidth="1" opacity="0.15" />
-              <line x1="135" y1="54" x2="135" y2="66" stroke="white" strokeWidth="0.8" opacity="0.12" />
-              <line x1="129" y1="60" x2="141" y2="60" stroke="white" strokeWidth="0.8" opacity="0.12" />
+            {Array.from({ length: 8 }).map((_, i) => (
+              <line key={`h${i}`} x1="0" y1={20 * i} x2="240" y2={20 * i} stroke="white" strokeWidth="0.3" opacity="0.03" />
+            ))}
+
+            {/* Building structure — wireframe */}
+            <rect x="70" y="50" width="60" height="70" rx="2" stroke="white" strokeWidth="1.2" opacity="0.12" strokeDasharray="4 3" />
+            <rect x="75" y="58" width="14" height="14" rx="1" stroke="white" strokeWidth="0.8" opacity="0.08" />
+            <rect x="95" y="58" width="14" height="14" rx="1" stroke="white" strokeWidth="0.8" opacity="0.08" />
+            <rect x="115" y="58" width="10" height="14" rx="1" stroke="white" strokeWidth="0.8" opacity="0.06" strokeDasharray="2 2" />
+            <rect x="75" y="80" width="14" height="14" rx="1" stroke="white" strokeWidth="0.8" opacity="0.08" />
+            <rect x="95" y="80" width="14" height="14" rx="1" stroke="white" strokeWidth="0.8" opacity="0.06" strokeDasharray="2 2" />
+            <rect x="85" y="102" width="16" height="18" rx="1.5" stroke="white" strokeWidth="0.8" opacity="0.1" />
+
+            {/* Crane */}
+            <line x1="155" y1="120" x2="155" y2="15" stroke="white" strokeWidth="2" opacity="0.12" />
+            <line x1="155" y1="15" x2="90" y2="15" stroke="white" strokeWidth="1.5" opacity="0.1" />
+            <line x1="155" y1="15" x2="175" y2="15" stroke="white" strokeWidth="1.5" opacity="0.1" />
+            {/* Crane support cables */}
+            <line x1="155" y1="30" x2="100" y2="15" stroke="white" strokeWidth="0.6" opacity="0.07" />
+            <line x1="155" y1="30" x2="170" y2="15" stroke="white" strokeWidth="0.6" opacity="0.07" />
+            {/* Crane hook + cable */}
+            <motion.g animate={{ y: [0, 4, 0] }} transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}>
+              <line x1="105" y1="15" x2="105" y2="38" stroke="white" strokeWidth="0.8" opacity="0.1" />
+              <path d="M101 38 Q105 45 109 38" stroke="white" strokeWidth="1" opacity="0.15" />
+              {/* Dangling block */}
+              <rect x="98" y="46" width="14" height="10" rx="1" fill="white" opacity="0.06" stroke="white" strokeWidth="0.8" strokeOpacity="0.1" />
             </motion.g>
-            {/* Water tank */}
-            <rect x="185" y="48" width="25" height="40" rx="4" stroke="white" strokeWidth="1" opacity="0.12" />
-            <motion.rect x="186" width="23" rx="3" fill="white" opacity="0.04" animate={{ height: [20, 30, 20], y: [68, 58, 68] }} transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }} />
-            {/* Drops */}
-            <motion.path d="M155 89 L155 95 Q155 98 155 95" stroke="white" strokeWidth="1.5" strokeLinecap="round" opacity="0.1"
-              animate={{ y: [0, 6], opacity: [0.12, 0] }} transition={{ duration: 1.2, repeat: Infinity }} />
-            <motion.path d="M160 95 L160 100" stroke="white" strokeWidth="1" strokeLinecap="round" opacity="0.06"
-              animate={{ y: [0, 5], opacity: [0.08, 0] }} transition={{ duration: 1.5, repeat: Infinity, delay: 0.4 }} />
+            {/* Crane base */}
+            <rect x="145" y="118" width="20" height="6" rx="1" fill="white" opacity="0.06" />
+
+            {/* Code brackets — </> */}
+            <motion.g opacity={hovered ? 0.25 : 0.12} transition={{ duration: 0.3 }}>
+              <text x="175" y="72" fill="white" fontSize="28" fontFamily="monospace" fontWeight="bold">&lt;/&gt;</text>
+            </motion.g>
+
+            {/* Gear */}
+            <motion.g animate={{ rotate: 360 }} transition={{ duration: 8, repeat: Infinity, ease: 'linear' }} style={{ transformOrigin: '200px 105px' }}>
+              <circle cx="200" cy="105" r="10" stroke="white" strokeWidth="1.2" opacity="0.1" />
+              <circle cx="200" cy="105" r="4" stroke="white" strokeWidth="0.8" opacity="0.08" />
+              {[0, 45, 90, 135].map((deg) => {
+                const rad = (deg * Math.PI) / 180;
+                return <rect key={deg} x={198 + 9 * Math.cos(rad)} y={103 + 9 * Math.sin(rad)} width="4" height="4" rx="0.5" fill="white" opacity="0.08" transform={`rotate(${deg}, ${200 + 9 * Math.cos(rad)}, ${105 + 9 * Math.sin(rad)})`} />;
+              })}
+            </motion.g>
+
+            {/* Progress bar */}
+            <rect x="30" y="130" width="100" height="4" rx="2" fill="white" opacity="0.05" />
+            <motion.rect x="30" y="130" height="4" rx="2" fill="white" opacity="0.12" animate={{ width: [0, 65, 0] }} transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }} />
+            <text x="30" y="127" fill="white" opacity="0.08" fontSize="7" fontFamily="monospace">BUILDING...</text>
+
+            {/* Caution stripes — top */}
+            <g opacity="0.06">
+              {Array.from({ length: 16 }).map((_, i) => (
+                <rect key={i} x={i * 16 - 2} y="0" width="8" height="5" fill="#FBBF24" transform={`skewX(-20)`} />
+              ))}
+            </g>
           </motion.svg>
         </div>
       );
@@ -333,14 +354,24 @@ function Card({ p, index }) {
         >
 
           <div className="group relative aspect-[16/10] rounded-[20px] overflow-hidden">
-            {/* Gradient bg */}
-            <motion.div
-              className={`absolute inset-0 bg-gradient-to-br ${p.gradient} opacity-80 group-hover:opacity-100 transition-opacity duration-700`}
-              style={{ scale: bgScale }}
-            />
+            {/* Background — screenshot image or gradient */}
+            {p.img ? (
+              <motion.img
+                src={p.img}
+                alt={p.title}
+                className="absolute inset-0 w-full h-full object-cover object-top"
+                style={{ scale: bgScale }}
+                loading="lazy"
+              />
+            ) : (
+              <motion.div
+                className={`absolute inset-0 bg-gradient-to-br ${p.gradient} opacity-80 group-hover:opacity-100 transition-opacity duration-700`}
+                style={{ scale: bgScale }}
+              />
+            )}
 
-            {/* Grid pattern overlay */}
-            <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.8) 1px, transparent 1px)', backgroundSize: '24px 24px' }} />
+            {/* Grid pattern overlay — only for gradient cards */}
+            {!p.img && <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.8) 1px, transparent 1px)', backgroundSize: '24px 24px' }} />}
 
             {/* Accent shimmer sweep for featured */}
             {isFeatured && (
@@ -352,11 +383,11 @@ function Card({ p, index }) {
               />
             )}
 
-            {/* Cover art illustration — confined to top portion */}
-            {p.icon && <CoverArt icon={p.icon} hovered={hovered} />}
+            {/* Cover art illustration — only for gradient cards */}
+            {!p.img && p.icon && <CoverArt icon={p.icon} hovered={hovered} />}
 
-            {/* Title watermark — only when no illustration */}
-            {!p.icon && (
+            {/* Title watermark — only when no illustration and no image */}
+            {!p.icon && !p.img && (
               <div className="absolute inset-0 flex items-center justify-center overflow-hidden">
                 <motion.span
                   className="font-display text-white/[0.05] text-[48px] sm:text-[80px] md:text-[110px] font-bold tracking-[-0.04em] select-none whitespace-nowrap"
@@ -368,8 +399,8 @@ function Card({ p, index }) {
               </div>
             )}
 
-            {/* Bottom gradient overlay — stronger when illustration exists */}
-            <div className={`absolute inset-0 ${p.icon ? 'bg-gradient-to-t from-black/80 via-black/40 via-[55%] to-transparent' : 'bg-gradient-to-t from-black/70 via-black/5 to-transparent'}`} />
+            {/* Bottom gradient overlay */}
+            <div className={`absolute inset-0 ${p.img ? 'bg-gradient-to-t from-black/90 via-black/50 via-[50%] to-black/10' : p.icon ? 'bg-gradient-to-t from-black/80 via-black/40 via-[55%] to-transparent' : 'bg-gradient-to-t from-black/70 via-black/5 to-transparent'}`} />
 
             {/* Shine on hover */}
             <motion.div
