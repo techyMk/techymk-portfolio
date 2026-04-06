@@ -126,7 +126,7 @@ export default function Hero({ ready = true }) {
               />
               <div className="relative w-[240px] h-[280px] sm:w-[260px] sm:h-[310px] md:w-full md:h-[360px] lg:h-[390px] rounded-[20px] sm:rounded-[24px] overflow-hidden border border-border/30 shadow-2xl shadow-black/25">
                 <img
-                  src="assets/hero.png"
+                  src="assets/hero.webp"
                   alt="Profile"
                   className="w-full h-full object-cover object-top"
                 />

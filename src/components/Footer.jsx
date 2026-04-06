@@ -650,7 +650,7 @@ export default function Footer() {
         <div className="border-t border-border/30 py-6 sm:py-10">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6 sm:gap-8">
             <div className="flex items-center gap-3">
-              <img src="assets/favicon.png" alt="TechyMk" className="w-9 h-9 rounded-full object-cover" />
+              <img src="assets/favicon.webp" alt="TechyMk" className="w-9 h-9 rounded-full object-cover" />
               <div>
                 <p className="text-content-primary text-[15px] font-display font-bold">Manikandan</p>
                 <p className="text-content-muted text-[12px]">Designer & Frontend Developer</p>

@@ -155,7 +155,7 @@ export default function Navbar() {
               transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
             >
               <a href="#home" className="flex items-center gap-2 pl-3 pr-2">
-                <img src="assets/favicon.png" alt="TechyMk" className="w-7 h-7 rounded-full object-cover" />
+                <img src="assets/favicon.webp" alt="TechyMk" className="w-7 h-7 rounded-full object-cover" />
               </a>
 
               <div className="hidden md:block w-px h-5 bg-border mx-1" />
@@ -189,7 +189,7 @@ export default function Navbar() {
               onClick={() => setMenuOpen(true)}
               data-hover
             >
-              <img src="assets/favicon.png" alt="TechyMk" className="w-7 h-7 sm:w-8 sm:h-8 rounded-full object-cover flex-shrink-0" />
+              <img src="assets/favicon.webp" alt="TechyMk" className="w-7 h-7 sm:w-8 sm:h-8 rounded-full object-cover flex-shrink-0" />
               <span className="text-content-secondary text-[11px] sm:text-[13px] font-medium whitespace-nowrap">Available for freelance works</span>
               <span className="relative flex-shrink-0 flex items-center justify-center w-4 h-4">
                 <span className="animate-ping absolute inline-flex h-3 w-3 rounded-full bg-emerald-400 opacity-40" />

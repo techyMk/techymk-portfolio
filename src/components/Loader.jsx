@@ -154,7 +154,7 @@ export default function Loader({ onComplete }) {
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
           >
             <motion.img
-              src="assets/favicon.png"
+              src="assets/favicon.webp"
               alt="TechyMk"
               className="w-[80px] h-[80px] sm:w-[100px] sm:h-[100px] rounded-full"
               animate={{

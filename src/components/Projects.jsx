@@ -4,12 +4,12 @@ import { ArrowUpRight, ExternalLink } from 'lucide-react';
 import ScrollReveal from './ScrollReveal';
 
 const projects = [
-  { id: 1, title: 'Embsys AI', desc: 'Full website design & development for an agentic AI visual intelligence company — including brand identity, logo, and UI/UX.', tags: ['Web', 'UI/UX', 'Branding', 'AI'], gradient: 'from-violet-600 via-purple-500 to-fuchsia-500', featured: true, link: 'https://embsysai.com/', img: 'assets/embsys.png' },
-  { id: 2, title: 'Inko', desc: 'A browser-based paint editor with brushes, colors, and layers — built entirely with vanilla JavaScript.', tags: ['JavaScript', 'Canvas', 'CSS'], gradient: 'from-cyan-500 via-blue-600 to-indigo-600', link: 'https://inko-techymk.netlify.app/', img: 'assets/inko.png' },
+  { id: 1, title: 'Embsys AI', desc: 'Full website design & development for an agentic AI visual intelligence company — including brand identity, logo, and UI/UX.', tags: ['Web', 'UI/UX', 'Branding', 'AI'], gradient: 'from-violet-600 via-purple-500 to-fuchsia-500', featured: true, link: 'https://embsysai.com/', img: 'assets/embsys.webp' },
+  { id: 2, title: 'Inko', desc: 'A browser-based paint editor with brushes, colors, and layers — built entirely with vanilla JavaScript.', tags: ['JavaScript', 'Canvas', 'CSS'], gradient: 'from-cyan-500 via-blue-600 to-indigo-600', link: 'https://inko-techymk.netlify.app/', img: 'assets/inko.webp' },
   { id: 3, title: 'Leoplast', desc: 'Designing & developing a complete web presence for Tamil Nadu\'s premier plumbing manufacturer with 40 years of industry leadership.', tags: ['Web', 'UI/UX', 'Branding'], gradient: 'from-rose-500 via-pink-600 to-purple-600', featured: true, building: true, icon: 'leoplast' },
-  { id: 4, title: 'Tagzo', desc: 'QR code generator with instant creation, custom styling, and one-click download.', tags: ['JavaScript', 'CSS', 'Web APIs'], gradient: 'from-emerald-500 via-teal-600 to-cyan-600', link: 'https://tagzo-techymk.vercel.app/', img: 'assets/tagzo.png' },
-  { id: 5, title: 'Pixo', desc: 'Feature-rich image editor with filters, cropping, adjustments, and export — right in the browser.', tags: ['JavaScript', 'Canvas', 'CSS'], gradient: 'from-amber-500 via-orange-500 to-red-500', link: 'https://pixo-techymk.netlify.app/', img: 'assets/pixo.png' },
-  { id: 6, title: 'Quizzy', desc: 'Interactive quiz app with timed questions, score tracking, and dynamic categories.', tags: ['JavaScript', 'CSS', 'HTML'], gradient: 'from-indigo-500 via-violet-600 to-purple-700', link: 'https://quizzy-techy-mk.vercel.app/', img: 'assets/quizzy.png' },
+  { id: 4, title: 'Tagzo', desc: 'QR code generator with instant creation, custom styling, and one-click download.', tags: ['JavaScript', 'CSS', 'Web APIs'], gradient: 'from-emerald-500 via-teal-600 to-cyan-600', link: 'https://tagzo-techymk.vercel.app/', img: 'assets/tagzo.webp' },
+  { id: 5, title: 'Pixo', desc: 'Feature-rich image editor with filters, cropping, adjustments, and export — right in the browser.', tags: ['JavaScript', 'Canvas', 'CSS'], gradient: 'from-amber-500 via-orange-500 to-red-500', link: 'https://pixo-techymk.netlify.app/', img: 'assets/pixo.webp' },
+  { id: 6, title: 'Quizzy', desc: 'Interactive quiz app with timed questions, score tracking, and dynamic categories.', tags: ['JavaScript', 'CSS', 'HTML'], gradient: 'from-indigo-500 via-violet-600 to-purple-700', link: 'https://quizzy-techy-mk.vercel.app/', img: 'assets/quizzy.webp' },
 ];
 
 /* ── Themed cover art — bold, app-icon-quality SVG illustrations ── */

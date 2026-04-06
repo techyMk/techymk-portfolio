@@ -21,7 +21,11 @@
       "Bash(nslookup github.com 8.8.8.8)",
       "Bash(grep -r \"md:\\\\|sm:\\\\|lg:\\\\|xl:\\\\|2xl:\" c:/Users/shoba/OneDrive/Documents/web-portfolio/src/components/*.jsx)",
       "Bash(npm run:*)",
-      "Bash(ls \"c:\\\\Users\\\\shoba\\\\OneDrive\\\\Documents\\\\web-portfolio\\\\public\\\\assets\"/kk*)"
+      "Bash(ls \"c:\\\\Users\\\\shoba\\\\OneDrive\\\\Documents\\\\web-portfolio\\\\public\\\\assets\"/kk*)",
+      "Bash(ls -lh \"c:\\\\Users\\\\shoba\\\\OneDrive\\\\Documents\\\\web-portfolio\\\\public\\\\assets/\"*.png \"c:\\\\Users\\\\shoba\\\\OneDrive\\\\Documents\\\\web-portfolio\\\\public\\\\assets/\"*.jpg)",
+      "Bash(npx sharp-cli:*)",
+      "Bash(npm list:*)",
+      "Bash(ls -lh \"c:\\\\Users\\\\shoba\\\\OneDrive\\\\Documents\\\\web-portfolio\\\\public\\\\assets/\"*.webp)"
     ],
     "additionalDirectories": [
       "c:\\Users\\shoba\\OneDrive\\Documents\\web-portfolio\\assets"
