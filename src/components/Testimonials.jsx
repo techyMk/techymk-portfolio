@@ -5,8 +5,8 @@ import ScrollReveal from './ScrollReveal';
 
 const data = [
   { id: 1, q: 'Manikandan delivered exactly what we envisioned — a sleek, professional website that truly represents our AI brand. His attention to detail in both design and development was exceptional. He didn\'t just build a site, he crafted our entire digital identity.', name: 'Karthik Kannan Ravi', role: 'Founder & CEO, Embsys Intelligence', img: 'assets/kk.webp' },
-  { id: 2, q: 'We needed someone who could understand our 40-year legacy and translate it into a modern web presence. Manikandan brought fresh ideas while respecting our brand values. His work ethic and responsiveness made the entire process smooth.', name: 'Surenthar', role: 'Manager, Leoplast', img: 'https://api.dicebear.com/9.x/lorelei/svg?seed=Surenthar&backgroundColor=0ea5e9&beard=variant02' },
-  { id: 3, q: 'Manikandan designed my channel\'s branding and it completely transformed my online presence. He understands what works for content creators — clean, eye-catching visuals that stand out. Highly recommend him for any creative work.', name: 'Balachandran', role: 'YouTuber, BC Gamer', img: 'https://api.dicebear.com/9.x/lorelei/svg?seed=BCGamer&backgroundColor=f43f5e&beard=variant01' },
+  { id: 2, q: 'We needed someone who could understand our 40-year legacy and translate it into a modern web presence. Manikandan brought fresh ideas while respecting our brand values. His work ethic and responsiveness made the entire process smooth.', name: 'Surenthar', role: 'Manager, Leoplast', img: 'https://ui-avatars.com/api/?name=S&background=0ea5e9&color=fff&size=128&bold=true&format=svg' },
+  { id: 3, q: 'Manikandan designed my channel\'s branding and it completely transformed my online presence. He understands what works for content creators — clean, eye-catching visuals that stand out. Highly recommend him for any creative work.', name: 'Balachandran', role: 'YouTuber, BC Gamer', img: 'assets/bc.webp' },
 ];
 
 export default function Testimonials() {

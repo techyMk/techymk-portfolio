@@ -25,7 +25,8 @@
       "Bash(ls -lh \"c:\\\\Users\\\\shoba\\\\OneDrive\\\\Documents\\\\web-portfolio\\\\public\\\\assets/\"*.png \"c:\\\\Users\\\\shoba\\\\OneDrive\\\\Documents\\\\web-portfolio\\\\public\\\\assets/\"*.jpg)",
       "Bash(npx sharp-cli:*)",
       "Bash(npm list:*)",
-      "Bash(ls -lh \"c:\\\\Users\\\\shoba\\\\OneDrive\\\\Documents\\\\web-portfolio\\\\public\\\\assets/\"*.webp)"
+      "Bash(ls -lh \"c:\\\\Users\\\\shoba\\\\OneDrive\\\\Documents\\\\web-portfolio\\\\public\\\\assets/\"*.webp)",
+      "Bash(ls -lh \"c:\\\\Users\\\\shoba\\\\OneDrive\\\\Documents\\\\web-portfolio\\\\public\\\\assets\"/hero*)"
     ],
     "additionalDirectories": [
       "c:\\Users\\shoba\\OneDrive\\Documents\\web-portfolio\\assets"
