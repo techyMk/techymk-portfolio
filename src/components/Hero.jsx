@@ -94,20 +94,33 @@ export default function Hero({ ready = true }) {
         <div className="flex flex-col items-center text-center lg:text-left lg:items-stretch lg:grid lg:grid-cols-[1fr_260px_1fr] gap-4 lg:gap-6">
 
           {/* Left column — flush right (towards image), TECHY MK above WEBSITE's left edge */}
-          <motion.div className="relative min-w-0 flex items-center justify-center lg:justify-end order-2 lg:order-none mt-6 lg:mt-0" style={{ x: textPar }}>
-            <div className="relative inline-block">
-              <motion.p
-                className="absolute bottom-full left-0 mb-2 text-content-primary text-[10px] sm:text-[11px] md:text-[13px] tracking-[0.25em] uppercase font-bold whitespace-nowrap"
-                initial={{ opacity: 0, x: -20, filter: 'blur(8px)' }}
-                animate={inView ? { opacity: 1, x: 0, filter: 'blur(0px)' } : {}}
-                transition={{ delay: 0.4, duration: 0.7 }}
-              >
-                Techy MK
-              </motion.p>
-              <h1 className="font-display font-black text-content-primary uppercase leading-none tracking-[-0.04em] text-[clamp(24px,7vw,80px)] sm:text-[clamp(36px,8vw,80px)] lg:text-[clamp(36px,4.8vw,76px)]">
-                <CharReveal delay={0.5} inView={inView}>WEBSITE</CharReveal>
-              </h1>
+          <motion.div className="relative min-w-0 flex flex-col items-center lg:items-stretch lg:block order-2 lg:order-none mt-6 lg:mt-0" style={{ x: textPar }}>
+            <motion.p
+              className="mb-2 lg:hidden text-content-primary text-[10px] sm:text-[11px] tracking-[0.25em] uppercase font-bold whitespace-nowrap"
+              initial={{ opacity: 0, y: 10, filter: 'blur(8px)' }}
+              animate={inView ? { opacity: 1, y: 0, filter: 'blur(0px)' } : {}}
+              transition={{ delay: 0.4, duration: 0.7 }}
+            >
+              Techy MK
+            </motion.p>
+            <div className="hidden lg:flex items-center justify-end">
+              <div className="relative inline-block">
+                <motion.p
+                  className="absolute bottom-full left-0 mb-2 text-content-primary md:text-[13px] tracking-[0.25em] uppercase font-bold whitespace-nowrap"
+                  initial={{ opacity: 0, x: -20, filter: 'blur(8px)' }}
+                  animate={inView ? { opacity: 1, x: 0, filter: 'blur(0px)' } : {}}
+                  transition={{ delay: 0.4, duration: 0.7 }}
+                >
+                  Techy MK
+                </motion.p>
+                <h1 className="font-display font-black text-content-primary uppercase leading-none tracking-[-0.04em] lg:text-[clamp(36px,4.8vw,76px)]">
+                  <CharReveal delay={0.5} inView={inView}>WEBSITE</CharReveal>
+                </h1>
+              </div>
             </div>
+            <h1 className="lg:hidden font-display font-black text-content-primary uppercase leading-none tracking-[-0.04em] text-[clamp(24px,7vw,80px)] sm:text-[clamp(36px,8vw,80px)] text-center">
+              <CharReveal delay={0.5} inView={inView}>WEBSITE</CharReveal>
+            </h1>
           </motion.div>
 
           {/* Center — Photo */}

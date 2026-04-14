@@ -52,11 +52,11 @@ function RippleButton({ href, children, className = '', onClick, rippleClass = '
     const rect = ref.current.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
-    const dx = Math.max(x, rect.width - x);
-    const dy = Math.max(y, rect.height - y);
+    // Ripple radius must reach the farthest corner from entry point — diameter = 2x that
     const farthestX = Math.max(x, rect.width - x);
     const farthestY = Math.max(y, rect.height - y);
-    const size = Math.ceil(Math.sqrt(farthestX * farthestX + farthestY * farthestY) * 2.5);
+    const radius = Math.sqrt(farthestX * farthestX + farthestY * farthestY);
+    const size = Math.ceil(radius * 2 + 20);
     setRipple({ x, y, size, key: Date.now() });
   }, []);
 
