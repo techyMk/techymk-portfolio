@@ -1,15 +1,15 @@
 import { useRef, useState } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { ArrowUpRight, ExternalLink } from 'lucide-react';
+import { ExternalLink } from 'lucide-react';
 import ScrollReveal from './ScrollReveal';
 
 const projects = [
   { id: 1, title: 'Embsys AI', desc: 'Full website design & development for an agentic AI visual intelligence company — including brand identity, logo, and UI/UX.', tags: ['Web', 'UI/UX', 'Branding', 'AI'], gradient: 'from-violet-600 via-purple-500 to-fuchsia-500', featured: true, link: 'https://embsysai.com/', img: 'assets/embsys.webp' },
   { id: 2, title: 'Inko', desc: 'A browser-based paint editor with brushes, colors, and layers — built entirely with vanilla JavaScript.', tags: ['JavaScript', 'Canvas', 'CSS'], gradient: 'from-cyan-500 via-blue-600 to-indigo-600', link: 'https://inko-techymk.netlify.app/', img: 'assets/inko.webp' },
   { id: 3, title: 'Leoplast', desc: 'Designing & developing a complete web presence for Tamil Nadu\'s premier plumbing manufacturer with 40 years of industry leadership.', tags: ['Web', 'UI/UX', 'Branding'], gradient: 'from-rose-500 via-pink-600 to-purple-600', featured: true, building: true, icon: 'leoplast' },
-  { id: 4, title: 'Tagzo', desc: 'QR code generator with instant creation, custom styling, and one-click download.', tags: ['JavaScript', 'CSS', 'Web APIs'], gradient: 'from-emerald-500 via-teal-600 to-cyan-600', link: 'https://tagzo-techymk.vercel.app/', img: 'assets/tagzo.webp' },
+  { id: 4, title: 'NestGenie', desc: 'AI-powered home decor image generator — full-stack app with frontend and backend, creating custom interior designs from prompts.', tags: ['AI', 'React', 'Node.js', 'Full-Stack'], gradient: 'from-emerald-500 via-teal-600 to-cyan-600', link: 'https://nest-genie.vercel.app/', img: 'assets/nestgenie.webp' },
   { id: 5, title: 'Pixo', desc: 'Feature-rich image editor with filters, cropping, adjustments, and export — right in the browser.', tags: ['JavaScript', 'Canvas', 'CSS'], gradient: 'from-amber-500 via-orange-500 to-red-500', link: 'https://pixo-techymk.netlify.app/', img: 'assets/pixo.webp' },
-  { id: 6, title: 'Quizzy', desc: 'Interactive quiz app with timed questions, score tracking, and dynamic categories.', tags: ['JavaScript', 'CSS', 'HTML'], gradient: 'from-indigo-500 via-violet-600 to-purple-700', link: 'https://quizzy-techy-mk.vercel.app/', img: 'assets/quizzy.webp' },
+  { id: 6, title: 'BrainDoc', desc: 'RAG-based chatbot supporting multiple retrieval models — full-stack app with document ingestion, vector search, and contextual responses.', tags: ['AI', 'RAG', 'React', 'Full-Stack'], gradient: 'from-indigo-500 via-violet-600 to-purple-700', link: 'https://brain-doc-rag.vercel.app/', img: 'assets/braindoc.webp' },
 ];
 
 /* ── Themed cover art — bold, app-icon-quality SVG illustrations ── */
@@ -472,9 +472,6 @@ export default function Projects() {
               <span className="text-content-primary">Featured </span><span className="text-gradient">projects</span>
             </h2>
           </div>
-          <a href="#projects" className="inline-flex items-center gap-2 text-accent text-[14px] font-semibold group" data-hover>
-            View all 20+ <ArrowUpRight size={16} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-          </a>
         </ScrollReveal>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
