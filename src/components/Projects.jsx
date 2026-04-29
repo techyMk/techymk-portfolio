@@ -7,7 +7,7 @@ const projects = [
   { id: 1, title: 'Embsys AI', subtitle: 'Visual Intelligence Platform', Icon: Eye, desc: 'Full website design & development for an agentic AI visual intelligence company — including brand identity, logo, and UI/UX.', tags: ['Web', 'UI/UX', 'Branding', 'AI'], gradient: 'from-violet-600 via-purple-500 to-fuchsia-500', featured: true, link: 'https://embsysai.com/', img: 'assets/embsys.webp' },
   { id: 3, title: 'Leoplast', subtitle: 'Plumbing Manufacturer', Icon: Building2, desc: 'Designing & developing a complete web presence for Tamil Nadu\'s premier plumbing manufacturer with 40 years of industry leadership.', tags: ['Web', 'UI/UX', 'Branding'], gradient: 'from-rose-500 via-pink-600 to-purple-600', featured: true, building: true },
   { id: 4, title: 'NestGenie', subtitle: 'AI Home Decor Generator', Icon: Home, desc: 'AI-powered home decor image generator — full-stack app with frontend and backend, creating custom interior designs from prompts.', tags: ['AI', 'React', 'Node.js', 'Full-Stack'], gradient: 'from-emerald-500 via-teal-600 to-cyan-600', link: 'https://nest-genie.vercel.app/', img: 'assets/nestgenie.webp' },
-  { id: 5, title: 'Codexa AI Bot', subtitle: 'AI Code Reviewer', Icon: GitPullRequest, desc: 'GitHub App that auto-reviews every PR with AI — catches bugs, security issues, and bad patterns before merge, posting findings with severity and concrete fix suggestions.', tags: ['AI', 'GitHub App', 'DevOps', 'Full-Stack'], gradient: 'from-amber-500 via-orange-500 to-red-500', link: 'https://codexa-ai-techymk.vercel.app/', img: 'assets/codexa.webp'},
+  { id: 5, title: 'Codexa AI Bot', subtitle: 'AI Code Reviewer', Icon: GitPullRequest, desc: 'GitHub App that auto-reviews every PR with AI — catches bugs, security issues, and bad patterns before merge, posting findings with concrete fix suggestions.', tags: ['AI', 'GitHub App', 'DevOps', 'Full-Stack'], gradient: 'from-amber-500 via-orange-500 to-red-500', link: 'https://codexa-ai-techymk.vercel.app/', img: 'assets/codexa.webp'},
   { id: 6, title: 'BrainDoc', subtitle: 'RAG Chatbot', Icon: MessageSquare, desc: 'RAG-based chatbot supporting multiple retrieval models — full-stack app with document ingestion, vector search, and contextual responses.', tags: ['AI', 'RAG', 'React', 'Full-Stack'], gradient: 'from-indigo-500 via-violet-600 to-purple-700', link: 'https://brain-doc-rag.vercel.app/', img: 'assets/braindoc.webp' },
   { id: 2, title: 'Inko', subtitle: 'Browser Paint Editor', Icon: Palette, desc: 'A browser-based paint editor with brushes, colors, and layers — built entirely with vanilla JavaScript.', tags: ['JavaScript', 'Canvas', 'CSS'], gradient: 'from-cyan-500 via-blue-600 to-indigo-600', link: 'https://inko-techymk.netlify.app/', img: 'assets/inko.webp' },
 ];
@@ -124,13 +124,13 @@ function Card({ p, index }) {
 
             {/* Client Project badge — always visible above everything */}
             {isFeatured && (
-              <div className="absolute top-4 left-4 sm:top-5 sm:left-5 z-20 flex items-center gap-3">
+              <div className="absolute top-4 left-4 sm:top-5 sm:left-5 right-16 lg:right-auto z-20 flex flex-col lg:flex-row items-start lg:items-center gap-1.5 lg:gap-3">
                 <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/[0.12] backdrop-blur-md border border-white/[0.15]">
                   <span className="relative flex h-1.5 w-1.5">
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-60" />
                     <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-400" />
                   </span>
-                  <span className="text-white text-[9px] sm:text-[10px] font-bold uppercase tracking-wider">Client Project</span>
+                  <span className="text-white text-[9px] sm:text-[10px] font-bold uppercase tracking-wider whitespace-nowrap">Client Project</span>
                 </div>
                 {p.building && (
                   <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-500/20 backdrop-blur-md border border-amber-400/25">
@@ -138,7 +138,7 @@ function Card({ p, index }) {
                       <span className="animate-pulse absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-80" />
                       <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-amber-400" />
                     </span>
-                    <span className="text-amber-200 text-[9px] sm:text-[10px] font-bold uppercase tracking-wider">In Progress</span>
+                    <span className="text-amber-200 text-[9px] sm:text-[10px] font-bold uppercase tracking-wider whitespace-nowrap">In Progress</span>
                   </div>
                 )}
               </div>
@@ -177,7 +177,7 @@ export default function Projects() {
           </div>
         </ScrollReveal>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-5">
           {projects.map((p, i) => (
             <Card key={p.id} p={p} index={i} />
           ))}

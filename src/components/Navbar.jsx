@@ -24,7 +24,7 @@ function NavLink({ href, children, active }) {
   return (
     <motion.a
       href={href}
-      className={`relative px-3 py-1.5 rounded-full text-[13px] transition-colors duration-200 inline-block ${
+      className={`relative px-3 py-1.5 rounded-full text-[13px] transition-colors duration-200 inline-block whitespace-nowrap ${
         active ? 'text-accent' : 'text-content-secondary hover:text-content-primary'
       }`}
       style={{ perspective: 400 }}
@@ -148,14 +148,14 @@ export default function Navbar() {
           {mode === 'nav' ? (
             <motion.nav
               key="nav"
-              className="flex items-center gap-1 px-2 py-2 rounded-full bg-bg-card/50 backdrop-blur-xl border border-border/30"
+              className="flex flex-nowrap items-center gap-1 px-2 py-2 rounded-full bg-bg-card/50 backdrop-blur-xl border border-border/30 whitespace-nowrap"
               initial={{ opacity: 0, y: -20, scale: 0.9, filter: 'blur(8px)' }}
               animate={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
               exit={{ opacity: 0, y: -12, scale: 0.95, filter: 'blur(6px)' }}
               transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
             >
-              <a href="#home" className="flex items-center gap-2 pl-3 pr-2">
-                <img src="assets/favicon.webp" alt="TechyMk" className="w-7 h-7 rounded-full object-cover" />
+              <a href="#home" className="flex items-center gap-2 pl-2 pr-1 flex-shrink-0">
+                <img src="assets/favicon.webp" alt="TechyMk" className="w-7 h-7 rounded-full object-cover flex-shrink-0 aspect-square" />
               </a>
 
               <div className="hidden md:block w-px h-5 bg-border mx-1" />
@@ -170,7 +170,7 @@ export default function Navbar() {
 
               <ThemeSwitch />
 
-              <RippleButton href="#contact" rippleClass="bg-accent" className="hidden md:inline-flex px-4 py-1.5 rounded-full bg-black text-white dark:bg-white dark:text-black dark:hover:text-white text-[13px] font-semibold">
+              <RippleButton href="#contact" rippleClass="bg-accent" className="hidden md:inline-flex ml-2 px-4 py-1.5 rounded-full bg-black text-white dark:bg-white dark:text-black dark:hover:text-white text-[13px] font-semibold whitespace-nowrap flex-shrink-0">
                 Hire Me
               </RippleButton>
 

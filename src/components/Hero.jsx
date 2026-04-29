@@ -156,8 +156,8 @@ export default function Hero({ ready = true }) {
               >
                 <AnimatePresence mode="wait">
                   {showWave ? (
-                    <motion.div key="wave" className="w-[24px] h-[24px] sm:w-[30px] sm:h-[30px] md:w-[38px] md:h-[38px]" style={{ originX: 0.5, originY: 0.9 }} initial={{ opacity: 0, scale: 0.4 }} animate={{ opacity: 1, scale: 1, rotate: [0, 14, -8, 14, -4, 10, 0, 0, 14, -8, 14, -4, 10, 0] }} exit={{ opacity: 0, scale: 0.4 }} transition={{ duration: 0.3, rotate: { duration: 2.4, delay: 0.2, ease: 'easeInOut' } }}>
-                      <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@latest/assets/svg/270b.svg" alt="wave" className="w-full h-full" />
+                    <motion.div key="wave" className="w-[24px] h-[24px] sm:w-[30px] sm:h-[30px] md:w-[38px] md:h-[38px]" style={{ originX: 0.5, originY: 0.9 }} initial={{ opacity: 0, scale: 0.4 }} animate={{ opacity: 1, scale: 1, rotate: [0, 14, -8, 14, -4, 10, 0] }} exit={{ opacity: 0, scale: 0.4 }} transition={{ duration: 0.3, rotate: { duration: 1.6, delay: 0.2, ease: 'easeInOut', repeat: Infinity, repeatType: 'loop', repeatDelay: 0.3 } }}>
+                      <img src="assets/wave.webp" alt="wave" className="w-full h-full" />
                     </motion.div>
                   ) : (
                     <motion.span key="hi" className="text-white font-display text-[16px] sm:text-[20px] md:text-[26px] font-medium" initial={{ opacity: 0, scale: 0.4 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.4 }} transition={{ duration: 0.35 }}>Hi!</motion.span>
