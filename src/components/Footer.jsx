@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
-import { motion, AnimatePresence, useInView, useMotionValue, useSpring } from 'framer-motion';
+import { motion, AnimatePresence, useInView, useMotionValue, animate } from 'framer-motion';
 
 const socials = [
   { label: 'LinkedIn', href: 'https://www.linkedin.com/in/techymk', icon: <svg className="w-[18px] h-[18px]" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg> },
@@ -15,16 +15,14 @@ const socials = [
 function DragLetter({ ch, index, inView, isGradient, onFling, onDragActivity, resetSignal }) {
   const x = useMotionValue(0);
   const y = useMotionValue(0);
-  const springX = useSpring(x, { stiffness: 300, damping: 20 });
-  const springY = useSpring(y, { stiffness: 300, damping: 20 });
   const [dragging, setDragging] = useState(false);
   const [flung, setFlung] = useState(false);
 
-  // Reset to origin when parent fires resetSignal
+  // Reset to origin when parent fires resetSignal — animate smoothly back
   useEffect(() => {
     if (resetSignal > 0) {
-      x.set(0);
-      y.set(0);
+      animate(x, 0, { type: 'spring', stiffness: 280, damping: 22 });
+      animate(y, 0, { type: 'spring', stiffness: 280, damping: 22 });
       setFlung(false);
     }
   }, [resetSignal, x, y]);
@@ -41,13 +39,13 @@ function DragLetter({ ch, index, inView, isGradient, onFling, onDragActivity, re
     const speed = Math.sqrt(info.velocity.x ** 2 + info.velocity.y ** 2);
 
     if (speed > 500) {
-      // Fling — letter flies out and stays there
+      // Fling — letter flies out with spring, stays there
       setFlung(true);
       onFling?.(index);
       const angle = Math.atan2(info.velocity.y, info.velocity.x);
       const dist = Math.min(speed * 0.3, 300);
-      x.set(Math.cos(angle) * dist);
-      y.set(Math.sin(angle) * dist);
+      animate(x, Math.cos(angle) * dist, { type: 'spring', stiffness: 220, damping: 18 });
+      animate(y, Math.sin(angle) * dist, { type: 'spring', stiffness: 220, damping: 18 });
     }
     // Otherwise: letter stays where it was dropped
   };
@@ -57,14 +55,13 @@ function DragLetter({ ch, index, inView, isGradient, onFling, onDragActivity, re
       className={`font-display font-black uppercase leading-[0.92] tracking-[-0.04em] text-[clamp(38px,9.5vw,110px)] inline-block cursor-grab active:cursor-grabbing touch-none select-none ${
         isGradient ? 'text-gradient' : 'text-content-primary'
       }`}
-      style={{ x: springX, y: springY }}
-      initial={{ y: 100, opacity: 0, filter: 'blur(12px)' }}
+      style={{ x, y }}
+      initial={{ opacity: 0, filter: 'blur(12px)' }}
       animate={inView ? {
-        y: 0, opacity: 1, filter: 'blur(0px)',
+        opacity: 1, filter: 'blur(0px)',
         scale: flung ? [1, 0.6, 1] : 1,
       } : {}}
       transition={{
-        y: { type: 'spring', bounce: 0.4, delay: index * 0.03 + 0.15 },
         opacity: { duration: 0.4, delay: index * 0.03 + 0.15 },
         filter: { duration: 0.4, delay: index * 0.03 + 0.15 },
         scale: { duration: 0.5 },
@@ -74,7 +71,7 @@ function DragLetter({ ch, index, inView, isGradient, onFling, onDragActivity, re
       dragElastic={0.15}
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
-      whileHover={!dragging ? { scale: 1.15, y: -6, transition: { type: 'spring', stiffness: 400 } } : undefined}
+      whileHover={!dragging ? { scale: 1.15, transition: { type: 'spring', stiffness: 400 } } : undefined}
       data-hover
     >
       {ch === ' ' ? '\u00A0' : ch}
@@ -167,50 +164,52 @@ function InteractiveHeading({ inView }) {
 
   return (
     <div ref={containerRef} className="relative mb-3 sm:mb-5 py-2" onDoubleClick={handleDoubleClick}>
-      {/* Explode pulse ring */}
-      <AnimatePresence>
-        {exploded && (
-          <>
-            <motion.div
-              key={`ring-${burstKey}`}
-              className="absolute rounded-full border-2 border-accent/40 pointer-events-none z-20"
-              style={{ left: burstPos.x, top: burstPos.y, translateX: '-50%', translateY: '-50%' }}
-              initial={{ width: 0, height: 0, opacity: 0.8 }}
-              animate={{ width: 800, height: 800, opacity: 0 }}
-              transition={{ duration: 0.9, ease: 'easeOut' }}
-            />
-            {Array.from({ length: 18 }).map((_, i) => {
-              const angle = (Math.PI * 2 * i) / 18;
-              const dist = 100 + Math.random() * 140;
-              return (
-                <motion.div
-                  key={`boom-${burstKey}-${i}`}
-                  className="absolute rounded-full pointer-events-none z-20"
-                  style={{ left: burstPos.x, top: burstPos.y, width: 3 + Math.random() * 6, height: 3 + Math.random() * 6, backgroundColor: `rgba(var(--c-accent), ${0.4 + Math.random() * 0.6})` }}
-                  initial={{ x: 0, y: 0, opacity: 1 }}
-                  animate={{ x: Math.cos(angle) * dist, y: Math.sin(angle) * dist, opacity: 0, scale: 0 }}
-                  transition={{ duration: 0.6, ease: 'easeOut' }}
-                />
-              );
-            })}
-          </>
-        )}
-      </AnimatePresence>
+      {/* Explosion effects (ring + sparks) — clipped to container so they can't overflow viewport */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <AnimatePresence>
+          {exploded && (
+            <>
+              <motion.div
+                key={`ring-${burstKey}`}
+                className="absolute rounded-full border-2 border-accent/40"
+                style={{ left: burstPos.x, top: burstPos.y, translateX: '-50%', translateY: '-50%' }}
+                initial={{ width: 0, height: 0, opacity: 0.8 }}
+                animate={{ width: 800, height: 800, opacity: 0 }}
+                transition={{ duration: 0.9, ease: 'easeOut' }}
+              />
+              {Array.from({ length: 18 }).map((_, i) => {
+                const angle = (Math.PI * 2 * i) / 18;
+                const dist = 100 + Math.random() * 140;
+                return (
+                  <motion.div
+                    key={`boom-${burstKey}-${i}`}
+                    className="absolute rounded-full"
+                    style={{ left: burstPos.x, top: burstPos.y, width: 3 + Math.random() * 6, height: 3 + Math.random() * 6, backgroundColor: `rgba(var(--c-accent), ${0.4 + Math.random() * 0.6})` }}
+                    initial={{ x: 0, y: 0, opacity: 1 }}
+                    animate={{ x: Math.cos(angle) * dist, y: Math.sin(angle) * dist, opacity: 0, scale: 0 }}
+                    transition={{ duration: 0.6, ease: 'easeOut' }}
+                  />
+                );
+              })}
+            </>
+          )}
+        </AnimatePresence>
 
-      {/* Fling sparks */}
-      <AnimatePresence>
-        {sparks.map((s) => (
-          <motion.div
-            key={s.id}
-            className="absolute rounded-full pointer-events-none z-20"
-            style={{ left: s.cx, top: s.cy, width: s.size, height: s.size, backgroundColor: 'rgba(var(--c-accent), 0.7)' }}
-            initial={{ x: 0, y: 0, opacity: 1, scale: 1 }}
-            animate={{ x: Math.cos(s.angle) * s.dist, y: Math.sin(s.angle) * s.dist, opacity: 0, scale: 0 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.45, ease: 'easeOut' }}
-          />
-        ))}
-      </AnimatePresence>
+        {/* Fling sparks */}
+        <AnimatePresence>
+          {sparks.map((s) => (
+            <motion.div
+              key={s.id}
+              className="absolute rounded-full"
+              style={{ left: s.cx, top: s.cy, width: s.size, height: s.size, backgroundColor: 'rgba(var(--c-accent), 0.7)' }}
+              initial={{ x: 0, y: 0, opacity: 1, scale: 1 }}
+              animate={{ x: Math.cos(s.angle) * s.dist, y: Math.sin(s.angle) * s.dist, opacity: 0, scale: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.45, ease: 'easeOut' }}
+            />
+          ))}
+        </AnimatePresence>
+      </div>
 
       {/* Letters */}
       <div className="flex flex-wrap items-baseline">

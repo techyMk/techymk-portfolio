@@ -46,6 +46,10 @@ html { scrollbar-width: thin; scrollbar-color: rgba(var(--c-border-hover), 1) rg
 ::-webkit-scrollbar-track { background: rgb(var(--c-bg)); }
 ::-webkit-scrollbar-thumb { background: rgb(var(--c-border-hover)); border-radius: 4px; }
 
+html {
+  overflow-x: hidden;
+}
+
 body {
   font-family: 'Inter', system-ui, sans-serif;
   background: rgb(var(--c-bg));
