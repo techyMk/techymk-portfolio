@@ -4,12 +4,12 @@ import { Plus } from 'lucide-react';
 import ScrollReveal from './ScrollReveal';
 
 const faqs = [
-  { q: 'What services do you offer?', a: 'I offer UI/UX design, graphic design, web design, and branding — each tailored to your specific needs and business goals.' },
-  { q: 'How does the design process work?', a: 'Four stages: Discovery, Design, Development, and Delivery. You\'re involved at every step, with regular check-ins and feedback rounds.' },
-  { q: 'How long does a project usually take?', a: 'A landing page takes 1-2 weeks. A full branding project takes 4-6 weeks. I\'ll provide a detailed timeline during our first call.' },
-  { q: 'What do I need to get started?', a: 'A brief outlining your goals, target audience, any brand guidelines, content, and reference materials or inspiration.' },
-  { q: 'Do you offer revisions?', a: 'Yes — revisions are included. The number depends on project scope, but I ensure the final result meets your vision.' },
-  { q: 'How do I get started?', a: 'Email me or use the contact section. We\'ll schedule a discovery call, and I\'ll prepare a tailored proposal.' },
+  { q: 'What services do you offer?', a: 'I offer UI/UX design, web design, graphic design, and branding — each tailored to your business goals, audience, and product vision.' },
+  { q: 'How does the design process work?', a: 'My process is structured into four stages: Discovery, Design, Development, and Delivery. You\'ll be involved throughout, with regular check-ins and feedback at key milestones.' },
+  { q: 'How long does a project usually take?', a: 'A typical landing page takes 1–2 weeks, while a full branding project is completed in 4–6 weeks. Timelines may vary based on scope, and I\'ll share a detailed plan during our first call.' },
+  { q: 'What do I need to get started?', a: 'To get started, I\'ll need a brief outlining your goals, target audience, brand guidelines (if any), content, and references or inspiration. Don\'t worry if you don\'t have everything — I can help guide you.' },
+  { q: 'Do you offer revisions?', a: 'Yes—revisions are included in every project. The exact number depends on the scope, but the goal is to ensure the final outcome aligns perfectly with your vision.' },
+  { q: 'How do I get started?', a: 'You can reach out via email or the contact form. We\'ll schedule a discovery call to understand your needs, and I\'ll follow up with a tailored proposal outlining scope, timeline, and pricing.' },
 ];
 
 function Item({ faq, index, open, toggle }) {
