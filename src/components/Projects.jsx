@@ -38,11 +38,17 @@ function Card({ p, index }) {
           onMouseLeave={() => { setTilt({ x: 0, y: 0 }); setHovered(false); }}
           onMouseEnter={() => setHovered(true)}
           className={`rounded-[20px] relative ${isFeatured ? 'featured-border' : 'glow-border'}`}
-          style={{ transform: `perspective(800px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`, transition: 'transform 0.25s ease-out' }}
+          style={{
+            transform: `perspective(800px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg) translateZ(0)`,
+            transition: 'transform 0.25s ease-out',
+            willChange: 'transform',
+            backfaceVisibility: 'hidden',
+            WebkitFontSmoothing: 'antialiased',
+          }}
           data-hover
         >
 
-          <div className="group relative aspect-[16/10] rounded-[20px] overflow-hidden">
+          <div className="group relative aspect-[16/10] rounded-[20px]" style={{ clipPath: 'inset(0 round 20px)', WebkitClipPath: 'inset(0 round 20px)', transform: 'translateZ(0)' }}>
             {/* Screenshot — always rendered at full opacity, the BASE layer */}
             {p.img && (
               <motion.img
