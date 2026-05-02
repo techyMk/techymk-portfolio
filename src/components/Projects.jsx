@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { ExternalLink, Eye, Building2, Home, GitPullRequest, MessageSquare, Palette } from 'lucide-react';
+import { ExternalLink, Eye, Building2, Home, GitPullRequest, MessageSquare, Lightbulb } from 'lucide-react';
 import ScrollReveal from './ScrollReveal';
 
 const projects = [
@@ -9,7 +9,7 @@ const projects = [
   { id: 4, title: 'NestGenie', subtitle: 'AI Home Decor Generator', Icon: Home, desc: 'AI-powered home decor image generator — full-stack app with frontend and backend, creating custom interior designs from prompts.', tags: ['AI', 'React', 'Node.js', 'Full-Stack'], gradient: 'from-emerald-500 via-teal-600 to-cyan-600', link: 'https://nest-genie.vercel.app/', img: 'assets/nestgenie.webp' },
   { id: 5, title: 'Codexa AI Bot', subtitle: 'AI Code Reviewer', Icon: GitPullRequest, desc: 'GitHub App that auto-reviews every PR with AI — catches bugs, security issues, and bad patterns before merge, posting findings with concrete fix suggestions.', tags: ['AI', 'GitHub App', 'DevOps', 'Full-Stack'], gradient: 'from-amber-500 via-orange-500 to-red-500', link: 'https://codexa-ai-techymk.vercel.app/', img: 'assets/codexa.webp'},
   { id: 6, title: 'BrainDoc', subtitle: 'RAG Chatbot', Icon: MessageSquare, desc: 'RAG-based chatbot supporting multiple retrieval models — full-stack app with document ingestion, vector search, and contextual responses.', tags: ['AI', 'RAG', 'React', 'Full-Stack'], gradient: 'from-indigo-500 via-violet-600 to-purple-700', link: 'https://brain-doc-rag.vercel.app/', img: 'assets/braindoc.webp' },
-  { id: 2, title: 'Inko', subtitle: 'Browser Paint Editor', Icon: Palette, desc: 'A browser-based paint editor with brushes, colors, and layers — built entirely with vanilla JavaScript.', tags: ['JavaScript', 'Canvas', 'CSS'], gradient: 'from-cyan-500 via-blue-600 to-indigo-600', link: 'https://inko-techymk.netlify.app/', img: 'assets/inko.webp' },
+  { id: 2, title: 'Hintsight', subtitle: 'Forecast Calibration Tracker', Icon: Lightbulb, desc: 'Log predictions with stated probabilities, mark them right or wrong on the resolution date, and measure your calibration over time — turning judgment into data.', tags: ['React', 'Forecasting', 'Analytics'], gradient: 'from-cyan-500 via-blue-600 to-indigo-600', link: 'https://hintsight.vercel.app/', img: 'assets/hintsight.webp' },
 ];
 
 
