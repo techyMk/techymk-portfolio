@@ -111,7 +111,7 @@ export default function Loader({ onComplete }) {
     return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const nameChars = 'TECHYMK'.split('');
+  const nameChars = 'techyMk'.split('');
 
   return (
     <AnimatePresence>
