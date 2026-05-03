@@ -101,7 +101,7 @@ export default function Hero({ ready = true }) {
               animate={inView ? { opacity: 1, y: 0, filter: 'blur(0px)' } : {}}
               transition={{ delay: 0.4, duration: 0.7 }}
             >
-              Techy MK
+              techyMk
             </motion.p>
             <div className="hidden lg:flex items-center justify-end">
               <div className="relative inline-block">
@@ -111,7 +111,7 @@ export default function Hero({ ready = true }) {
                   animate={inView ? { opacity: 1, x: 0, filter: 'blur(0px)' } : {}}
                   transition={{ delay: 0.4, duration: 0.7 }}
                 >
-                  Techy MK
+                  techyMk
                 </motion.p>
                 <h1 className="font-display font-black text-content-primary uppercase leading-none tracking-[-0.04em] lg:text-[clamp(36px,4.8vw,76px)]">
                   <CharReveal delay={0.5} inView={inView}>WEBSITE</CharReveal>
