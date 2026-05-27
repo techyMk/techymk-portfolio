@@ -68,7 +68,7 @@ export default function About() {
                 <a href="#contact" className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-accent text-white text-[13px] font-semibold hover:bg-accent-hover transition-colors shadow-lg shadow-accent/15" data-hover>
                   Hire Me <ArrowUpRight size={14} />
                 </a>
-                <a href="#" className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-border text-content-muted text-[13px] hover:text-accent hover:border-accent/30 transition-all" data-hover>
+                <a href="assets/Resume_Manikandan-Developer.pdf" download="Manikandan_Resume.pdf" className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-border text-content-muted text-[13px] hover:text-accent hover:border-accent/30 transition-all" data-hover>
                   <Download size={14} /> Download CV
                 </a>
               </div>
