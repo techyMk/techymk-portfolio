@@ -74,6 +74,8 @@ export default function Hero({ ready = true }) {
   const floatY = useTransform(sy, [-0.5, 0.5], [-30, 30]);
 
   useEffect(() => {
+    // Skip mousemove parallax on touch devices — saves listener overhead and spring calculations
+    if (!window.matchMedia('(hover: hover)').matches) return;
     const fn = (e) => { mx.set(e.clientX / window.innerWidth - 0.5); my.set(e.clientY / window.innerHeight - 0.5); };
     window.addEventListener('mousemove', fn);
     return () => window.removeEventListener('mousemove', fn);

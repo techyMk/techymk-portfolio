@@ -54,38 +54,38 @@ function Particle({ symbol, i, mouseX, mouseY }) {
 }
 
 export default function FloatingTech() {
+  const [isHoverDevice, setIsHoverDevice] = useState(false);
+
+  useEffect(() => {
+    setIsHoverDevice(window.matchMedia('(hover: hover)').matches);
+  }, []);
+
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
   const smoothX = useSpring(mouseX, { stiffness: 20, damping: 15 });
   const smoothY = useSpring(mouseY, { stiffness: 20, damping: 15 });
 
   useEffect(() => {
+    if (!isHoverDevice) return;
     const fn = (e) => {
       mouseX.set(e.clientX / window.innerWidth - 0.5);
       mouseY.set(e.clientY / window.innerHeight - 0.5);
     };
     window.addEventListener('mousemove', fn);
     return () => window.removeEventListener('mousemove', fn);
-  }, [mouseX, mouseY]);
+  }, [mouseX, mouseY, isHoverDevice]);
 
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth < 768);
-    check();
-    window.addEventListener('resize', check);
-    return () => window.removeEventListener('resize', check);
-  }, []);
-
-  // Reduce particle count on mobile for performance
+  // Skip entirely on touch devices — saves 10 always-animating motion elements
   const particles = useMemo(() => {
-    const count = isMobile ? 10 : 28;
+    if (!isHoverDevice) return [];
     const picked = [];
-    for (let i = 0; i < count; i++) {
+    for (let i = 0; i < 28; i++) {
       picked.push(symbols[i % symbols.length]);
     }
     return picked;
-  }, [isMobile]);
+  }, [isHoverDevice]);
+
+  if (!isHoverDevice) return null;
 
   return (
     <div className="fixed inset-0 overflow-hidden pointer-events-none z-[1]">

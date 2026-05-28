@@ -115,6 +115,16 @@ body {
   100% { filter: hue-rotate(3deg);   transform: scale(1.02) translate(1%, -1%); }
 }
 
+/* ── Mobile performance: kill GPU-expensive animations on touch devices ── */
+@media (hover: none), (max-width: 768px) {
+  .mesh-bg { animation: none; }
+  .grain::after { animation: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mesh-bg { animation: none; }
+  .grain::after { animation: none; }
+}
+
 /* ── Gradient text ── */
 .text-gradient {
   background: linear-gradient(135deg, rgba(var(--c-accent), 1) 0%, #D946EF 50%, #EC4899 100%);

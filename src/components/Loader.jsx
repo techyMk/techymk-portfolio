@@ -95,8 +95,14 @@ export default function Loader({ onComplete }) {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
+    // Shorter loader on mobile for snappier first paint
+    const isMobile = window.matchMedia('(hover: none)').matches || window.innerWidth < 768;
+    const duration = isMobile ? 1100 : 2200;
+    const phase1At = isMobile ? 300 : 600;
+    const phase2At = isMobile ? 1200 : 2400;
+    const completeAt = isMobile ? 1700 : 3200;
+
     const start = Date.now();
-    const duration = 2200;
     const tick = () => {
       const elapsed = Date.now() - start;
       const p = Math.min(1, elapsed / duration);
@@ -105,9 +111,9 @@ export default function Loader({ onComplete }) {
     };
     requestAnimationFrame(tick);
 
-    const t1 = setTimeout(() => setPhase(1), 600);
-    const t2 = setTimeout(() => setPhase(2), 2400);
-    const t3 = setTimeout(() => onComplete?.(), 3200);
+    const t1 = setTimeout(() => setPhase(1), phase1At);
+    const t2 = setTimeout(() => setPhase(2), phase2At);
+    const t3 = setTimeout(() => onComplete?.(), completeAt);
     return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 

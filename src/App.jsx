@@ -84,9 +84,10 @@ export default function App() {
 
   const handleLoaderComplete = useCallback(() => setLoading(false), []);
 
-  // Safety fallback — force remove loader after 4s no matter what
+  // Safety fallback — force remove loader after timeout
   useEffect(() => {
-    const fallback = setTimeout(() => setLoading(false), 4000);
+    const isMobile = window.matchMedia('(hover: none)').matches || window.innerWidth < 768;
+    const fallback = setTimeout(() => setLoading(false), isMobile ? 2200 : 4000);
     return () => clearTimeout(fallback);
   }, []);
 
@@ -107,6 +108,27 @@ export default function App() {
       return () => { document.body.style.overflow = ''; };
     }
     document.body.style.overflow = '';
+
+    // Skip Lenis on touch devices — native scroll is faster and smoother on mobile
+    const isTouch = window.matchMedia('(hover: none)').matches;
+
+    // Native smooth scroll for anchor links on touch devices
+    if (isTouch) {
+      const handleAnchorClickNative = (e) => {
+        const target = e.target.closest('a[href^="#"]');
+        if (!target) return;
+        const id = target.getAttribute('href');
+        if (!id || id === '#') return;
+        const el = document.querySelector(id);
+        if (el) {
+          e.preventDefault();
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      };
+      document.addEventListener('click', handleAnchorClickNative);
+      return () => document.removeEventListener('click', handleAnchorClickNative);
+    }
+
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -115,7 +137,6 @@ export default function App() {
     function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
     requestAnimationFrame(raf);
 
-    // Smooth scroll for anchor links
     const handleAnchorClick = (e) => {
       const target = e.target.closest('a[href^="#"]');
       if (!target) return;
