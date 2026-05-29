@@ -2,5 +2,10 @@
   "installCommand": "npm install",
   "buildCommand": "node node_modules/vite/bin/vite.js build",
   "outputDirectory": "dist",
-  "framework": "vite"
+  "framework": "vite",
+  "redirects": [
+    { "source": "/call", "destination": "https://calendar.app.google/zZ2WvV6aAtwYKCEp9", "permanent": false },
+    { "source": "/book", "destination": "https://calendar.app.google/zZ2WvV6aAtwYKCEp9", "permanent": false },
+    { "source": "/meet", "destination": "https://calendar.app.google/zZ2WvV6aAtwYKCEp9", "permanent": false }
+  ]
 }
