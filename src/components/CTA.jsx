@@ -1,6 +1,17 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Send, ArrowUpRight, CheckCircle, ChevronDown, AlertCircle } from 'lucide-react';
+import { Send, ArrowUpRight, CheckCircle, ChevronDown, AlertCircle, Calendar } from 'lucide-react';
+
+const CALENDLY_URL = 'https://calendly.com/techymk-dev/30min';
+
+function openCalendly() {
+  if (typeof window !== 'undefined' && window.Calendly) {
+    window.Calendly.initPopupWidget({ url: CALENDLY_URL });
+    return false;
+  }
+  // Fallback if script hasn't loaded yet — open in new tab
+  window.open(CALENDLY_URL, '_blank', 'noopener,noreferrer');
+}
 import emailjs from '@emailjs/browser';
 import ScrollReveal from './ScrollReveal';
 
@@ -231,6 +242,21 @@ export default function CTA() {
               </div>
             </ScrollReveal>
 
+            <ScrollReveal delay={0.13}>
+              <button
+                type="button"
+                onClick={openCalendly}
+                className="w-full mb-4 inline-flex items-center justify-between gap-3 px-5 py-4 rounded-2xl bg-accent text-white text-[14px] font-semibold hover:bg-accent-hover transition-all shadow-lg shadow-accent/20 group"
+                data-hover
+              >
+                <span className="flex items-center gap-3">
+                  <Calendar size={18} strokeWidth={2} />
+                  Book a 30-min discovery call
+                </span>
+                <ArrowUpRight size={16} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+              </button>
+            </ScrollReveal>
+
             <ScrollReveal delay={0.15}>
               <div className="glass glow-border rounded-2xl p-6 relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-32 h-32 bg-accent/5 rounded-full blur-2xl pointer-events-none" />
@@ -311,6 +337,22 @@ export default function CTA() {
               <p className="text-content-muted text-[11px] text-center">
                 {status === 'sent' ? 'Thank you! I\'ll get back to you soon.' : 'Typically respond within 24 hours'}
               </p>
+
+              <div className="flex items-center gap-3 my-1">
+                <div className="flex-1 h-px bg-border" />
+                <span className="text-content-muted text-[10px] uppercase tracking-wider">or</span>
+                <div className="flex-1 h-px bg-border" />
+              </div>
+
+              <button
+                type="button"
+                onClick={openCalendly}
+                className="w-full inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl border border-accent/30 text-accent text-[13px] font-semibold hover:bg-accent/10 hover:border-accent/50 transition-all"
+                data-hover
+              >
+                <Calendar size={15} strokeWidth={2} />
+                Book a call instead
+              </button>
             </form>
           </ScrollReveal>
         </div>
