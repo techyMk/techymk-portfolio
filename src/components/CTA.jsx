@@ -21,22 +21,27 @@ const EMAILJS_TEMPLATE_ID = 'template_3w4t5zg';       // notification to you
 const EMAILJS_AUTOREPLY_ID = 'template_0f3mygn';     // auto-reply to sender
 const EMAILJS_PUBLIC_KEY = 'x4r8XNnu0wGlyIrYG';
 
-const budgetOptions = [
-  { label: 'Select a range', value: '' },
-  { label: 'Under $100', value: 'Under $100' },
-  { label: '$100 - $300', value: '$100 - $300' },
-  { label: '$300 - $500', value: '$300 - $500' },
-  { label: '$500 - $2,000', value: '$500 - $2,000' },
-  { label: '$2,000 - $5,000', value: '$2,000 - $5,000' },
-  { label: '$5,000+', value: '$5,000+' },
-  { label: 'Custom', value: 'custom' },
+const projectTypeOptions = [
+  { label: 'Landing page', value: 'Landing page' },
+  { label: 'Full website', value: 'Full website' },
+  { label: 'Web app', value: 'Web app' },
+  { label: 'AI feature (chatbot / search / tool)', value: 'AI feature' },
+  { label: 'Branding & UI/UX', value: 'Branding & UI/UX' },
+  { label: "Not sure yet — let's talk", value: 'Exploring' },
+];
+
+const timelineOptions = [
+  { label: 'ASAP', value: 'ASAP' },
+  { label: 'In the next few weeks', value: 'Few weeks' },
+  { label: '1–2 months out', value: '1-2 months' },
+  { label: 'Just exploring', value: 'Exploring' },
 ];
 
 /* ── Custom Dropdown ── */
-function CustomSelect({ value, onChange }) {
+function CustomSelect({ value, onChange, options, placeholder = 'Select an option' }) {
   const [open, setOpen] = useState(false);
   const ref = useRef(null);
-  const selected = budgetOptions.find(o => o.value === value);
+  const selected = options.find(o => o.value === value);
 
   useEffect(() => {
     const close = (e) => { if (ref.current && !ref.current.contains(e.target)) setOpen(false); };
@@ -52,7 +57,7 @@ function CustomSelect({ value, onChange }) {
         className="form-input flex items-center justify-between gap-2 text-left"
       >
         <span className={value ? 'text-content-primary' : 'text-content-muted'}>
-          {selected?.label || 'Select a range'}
+          {selected?.label || placeholder}
         </span>
         <motion.div animate={{ rotate: open ? 180 : 0 }} transition={{ duration: 0.2 }}>
           <ChevronDown size={16} className="text-content-muted" />
@@ -68,7 +73,7 @@ function CustomSelect({ value, onChange }) {
             exit={{ opacity: 0, y: -8, scale: 0.96 }}
             transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
           >
-            {budgetOptions.filter(o => o.value !== '').map((opt) => (
+            {options.map((opt) => (
               <button
                 key={opt.value}
                 type="button"
@@ -148,7 +153,7 @@ function RippleSubmit({ isValid, status }) {
         )}
         {status === 'sent' && <><CheckCircle size={16} /> Message Sent!</>}
         {status === 'error' && <><AlertCircle size={16} /> Failed — Try Again</>}
-        {status === 'idle' && <><Send size={16} /> Send Message</>}
+        {status === 'idle' && <><Send size={16} /> Send project details</>}
       </span>
     </motion.button>
   );
@@ -158,7 +163,7 @@ export default function CTA() {
   const [form, setForm] = useState(() => {
     const saved = typeof window !== 'undefined' ? localStorage.getItem('contact_user') : null;
     const user = saved ? JSON.parse(saved) : {};
-    return { name: user.name || '', email: user.email || '', subject: '', budget: '', customBudget: '', message: '' };
+    return { name: user.name || '', email: user.email || '', company: '', projectType: '', timeline: '', message: '' };
   });
   const [status, setStatus] = useState('idle'); // idle | sending | sent | error
 
@@ -172,7 +177,7 @@ export default function CTA() {
     }
   };
 
-  const isValid = form.name && form.email && form.message;
+  const isValid = form.name && form.email && form.projectType && form.message;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -180,12 +185,11 @@ export default function CTA() {
 
     setStatus('sending');
 
-    const budget = form.budget === 'custom' ? `$${form.customBudget}` : form.budget;
     const templateParams = {
       from_name: form.name,
       from_email: form.email,
-      subject: form.subject || `Portfolio inquiry from ${form.name}`,
-      budget: budget || 'Not specified',
+      subject: form.company ? `${form.projectType} — ${form.company}` : `${form.projectType} inquiry from ${form.name}`,
+      budget: [form.projectType, form.timeline && `Timeline: ${form.timeline}`, form.company && `Company / Project: ${form.company}`].filter(Boolean).join(' · '),
       message: form.message,
     };
 
@@ -197,8 +201,8 @@ export default function CTA() {
       await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_AUTOREPLY_ID, templateParams, EMAILJS_PUBLIC_KEY);
 
       setStatus('sent');
-      setForm({ name: '', email: '', subject: '', budget: '', customBudget: '', message: '' });
-      setTimeout(() => setStatus('idle'), 5000);
+      setForm({ name: '', email: '', company: '', projectType: '', timeline: '', message: '' });
+      setTimeout(() => setStatus('idle'), 8000);
     } catch {
       setStatus('error');
       setTimeout(() => setStatus('idle'), 4000);
@@ -216,7 +220,7 @@ export default function CTA() {
               <h2 className="font-display text-[28px] sm:text-[36px] md:text-[52px] font-bold leading-[1.05] tracking-[-0.04em] mb-4 sm:mb-5">
                 <span className="text-content-primary">Have a </span><span className="text-gradient">project</span><br /><span className="text-content-primary">in mind?</span>
               </h2>
-              <p className="text-content-secondary text-[14px] sm:text-[16px] leading-relaxed mb-8 sm:mb-10 max-w-md">Let's create something exceptional together. Fill out the form and I'll get back to you within 24 hours.</p>
+              <p className="text-content-secondary text-[14px] sm:text-[16px] leading-relaxed mb-8 sm:mb-10 max-w-md">Tell me a bit about it and I'll get back to you within 24 hours. Whether it's a new site, an AI feature, or something you're still figuring out — happy to talk it through.</p>
             </ScrollReveal>
 
             <ScrollReveal delay={0.1}>
@@ -288,71 +292,73 @@ export default function CTA() {
               </div>
 
               <div>
-                <label className="text-content-muted text-[11px] uppercase tracking-wider font-semibold mb-2.5 block">Subject</label>
-                <input type="text" placeholder="Project inquiry" className="form-input" value={form.subject} onChange={set('subject')} />
+                <label className="text-content-muted text-[11px] uppercase tracking-wider font-semibold mb-2.5 block">
+                  Company / project <span className="text-content-muted/60 normal-case tracking-normal">(optional)</span>
+                </label>
+                <input type="text" placeholder="Company name or project" className="form-input" value={form.company} onChange={set('company')} />
               </div>
-
-              <div>
-                <label className="text-content-muted text-[11px] uppercase tracking-wider font-semibold mb-2.5 block">Budget</label>
-                <CustomSelect value={form.budget} onChange={(v) => setForm(f => ({ ...f, budget: v, customBudget: v === 'custom' ? f.customBudget : '' }))} />
-              </div>
-
-              {/* Custom budget field */}
-              <AnimatePresence>
-                {form.budget === 'custom' && (
-                  <motion.div
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: 'auto', opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                    className="overflow-hidden"
-                  >
-                    <label className="text-content-muted text-[11px] uppercase tracking-wider font-semibold mb-2.5 block">
-                      Your Budget <span className="text-accent">*</span>
-                    </label>
-                    <div className="flex items-center form-input !p-0 overflow-hidden">
-                      <span className="pl-[18px] text-content-primary text-[14px] select-none">$</span>
-                      <input
-                        type="text"
-                        placeholder="3,000 or Hourly rate"
-                        className="flex-1 bg-transparent border-none outline-none text-content-primary text-[14px] py-[14px] pr-[18px] pl-2 placeholder:text-content-muted"
-                        value={form.customBudget}
-                        onChange={set('customBudget')}
-                        required
-                      />
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
 
               <div>
                 <label className="text-content-muted text-[11px] uppercase tracking-wider font-semibold mb-2.5 block">
-                  Message <span className="text-accent">*</span>
+                  What do you need? <span className="text-accent">*</span>
                 </label>
-                <textarea placeholder="Tell me about your project..." rows={4} className="form-input resize-none" value={form.message} onChange={set('message')} required />
+                <CustomSelect
+                  value={form.projectType}
+                  onChange={(v) => setForm(f => ({ ...f, projectType: v }))}
+                  options={projectTypeOptions}
+                  placeholder="Pick what fits best"
+                />
+              </div>
+
+              <div>
+                <label className="text-content-muted text-[11px] uppercase tracking-wider font-semibold mb-2.5 block">
+                  Timeline <span className="text-content-muted/60 normal-case tracking-normal">(optional)</span>
+                </label>
+                <CustomSelect
+                  value={form.timeline}
+                  onChange={(v) => setForm(f => ({ ...f, timeline: v }))}
+                  options={timelineOptions}
+                  placeholder="When are you hoping to start?"
+                />
+              </div>
+
+              <div>
+                <label className="text-content-muted text-[11px] uppercase tracking-wider font-semibold mb-2.5 block">
+                  Tell me about it <span className="text-accent">*</span>
+                </label>
+                <textarea
+                  placeholder="What are you building, and what would success look like? Links to anything relevant are welcome."
+                  rows={5}
+                  className="form-input resize-none"
+                  value={form.message}
+                  onChange={set('message')}
+                  required
+                />
               </div>
 
               <RippleSubmit isValid={isValid} status={status} />
 
-              <p className="text-content-muted text-[11px] text-center">
-                {status === 'sent' ? 'Thank you! I\'ll get back to you soon.' : 'Typically respond within 24 hours'}
-              </p>
+              {status === 'sent' ? (
+                <p className="text-content-secondary text-[13px] leading-relaxed text-center">
+                  Got it — thanks. I'll reply within 24 hours, usually sooner. If it's urgent, email me directly at{' '}
+                  <a href="mailto:techymk.dev@gmail.com" className="text-accent font-semibold hover:underline">techymk.dev@gmail.com</a>.
+                </p>
+              ) : (
+                <p className="text-content-muted text-[11px] text-center">Typically respond within 24 hours</p>
+              )}
 
-              <div className="flex items-center gap-3 my-1">
-                <div className="flex-1 h-px bg-border" />
-                <span className="text-content-muted text-[10px] uppercase tracking-wider">or</span>
-                <div className="flex-1 h-px bg-border" />
+              <div className="pt-1 text-center">
+                <button
+                  type="button"
+                  onClick={openCalendly}
+                  className="inline-flex items-center gap-1.5 text-content-muted hover:text-accent text-[13px] font-medium transition-colors group"
+                  data-hover
+                >
+                  <Calendar size={14} strokeWidth={2} />
+                  Prefer to talk? Book a 30-min call
+                  <ArrowUpRight size={13} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                </button>
               </div>
-
-              <button
-                type="button"
-                onClick={openCalendly}
-                className="w-full inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl border border-accent/30 text-accent text-[13px] font-semibold hover:bg-accent/10 hover:border-accent/50 transition-all"
-                data-hover
-              >
-                <Calendar size={15} strokeWidth={2} />
-                Book a call instead
-              </button>
             </form>
           </ScrollReveal>
         </div>
