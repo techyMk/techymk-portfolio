@@ -1,16 +1,90 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Send, ArrowUpRight, CheckCircle, ChevronDown, AlertCircle, Calendar } from 'lucide-react';
+import { Send, ArrowUpRight, CheckCircle, ChevronDown, AlertCircle, Calendar, X as CloseIcon } from 'lucide-react';
 
-const CALENDLY_URL = 'https://calendly.com/techymk-dev/30min';
+const CALENDAR_URL = 'https://calendar.app.google/zZ2WvV6aAtwYKCEp9';
 
-function openCalendly() {
-  if (typeof window !== 'undefined' && window.Calendly) {
-    window.Calendly.initPopupWidget({ url: CALENDLY_URL });
-    return false;
-  }
-  // Fallback if script hasn't loaded yet — open in new tab
-  window.open(CALENDLY_URL, '_blank', 'noopener,noreferrer');
+/* ── Google Calendar Booking Modal ── */
+function BookingModal({ open, onClose }) {
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e) => { if (e.key === 'Escape') onClose(); };
+    document.addEventListener('keydown', onKey);
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.removeEventListener('keydown', onKey);
+      document.body.style.overflow = prevOverflow;
+    };
+  }, [open, onClose]);
+
+  return (
+    <AnimatePresence>
+      {open && (
+        <motion.div
+          className="fixed inset-0 z-[200] flex items-center justify-center p-3 sm:p-6"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.25 }}
+        >
+          {/* Backdrop */}
+          <motion.div
+            className="absolute inset-0 bg-black/70 backdrop-blur-sm"
+            onClick={onClose}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          />
+
+          {/* Modal */}
+          <motion.div
+            className="relative w-full max-w-[900px] h-[90vh] sm:h-[80vh] bg-bg-card rounded-2xl sm:rounded-3xl border border-border shadow-2xl shadow-black/40 overflow-hidden"
+            initial={{ opacity: 0, scale: 0.94, y: 16 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.94, y: 16 }}
+            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+          >
+            {/* Top bar */}
+            <div className="flex items-center justify-between gap-3 px-4 sm:px-6 py-3 border-b border-border/50 bg-bg-elevated/50">
+              <div className="flex items-center gap-2.5 min-w-0">
+                <Calendar size={16} className="text-accent flex-shrink-0" strokeWidth={2.2} />
+                <span className="text-content-primary text-[13px] sm:text-[14px] font-semibold truncate">Book a discovery call</span>
+              </div>
+              <div className="flex items-center gap-2 flex-shrink-0">
+                <a
+                  href={CALENDAR_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hidden sm:inline-flex items-center gap-1.5 text-content-muted hover:text-accent text-[11px] font-medium transition-colors"
+                  data-hover
+                >
+                  Open in new tab <ArrowUpRight size={12} />
+                </a>
+                <button
+                  type="button"
+                  onClick={onClose}
+                  className="w-8 h-8 rounded-full bg-bg-elevated border border-border flex items-center justify-center text-content-secondary hover:text-content-primary hover:border-border-hover transition-colors"
+                  aria-label="Close"
+                  data-hover
+                >
+                  <CloseIcon size={15} />
+                </button>
+              </div>
+            </div>
+
+            {/* Iframe */}
+            <iframe
+              src={CALENDAR_URL}
+              title="Book a call with Manikandan"
+              className="w-full h-[calc(100%-49px)] border-0 bg-white"
+              loading="lazy"
+            />
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
 }
 import emailjs from '@emailjs/browser';
 import ScrollReveal from './ScrollReveal';
@@ -28,6 +102,7 @@ const projectTypeOptions = [
   { label: 'AI feature (chatbot / search / tool)', value: 'AI feature' },
   { label: 'Branding & UI/UX', value: 'Branding & UI/UX' },
   { label: "Not sure yet — let's talk", value: 'Exploring' },
+  { label: 'Other (specify below)', value: 'custom' },
 ];
 
 const timelineOptions = [
@@ -35,6 +110,7 @@ const timelineOptions = [
   { label: 'In the next few weeks', value: 'Few weeks' },
   { label: '1–2 months out', value: '1-2 months' },
   { label: 'Just exploring', value: 'Exploring' },
+  { label: 'Other (specify below)', value: 'custom' },
 ];
 
 /* ── Custom Dropdown ── */
@@ -80,8 +156,8 @@ function CustomSelect({ value, onChange, options, placeholder = 'Select an optio
                 onClick={() => { onChange(opt.value); setOpen(false); }}
                 className={`w-full text-left px-4 py-3 text-[14px] transition-all duration-150 flex items-center justify-between ${
                   value === opt.value
-                    ? 'bg-accent/10 text-accent font-medium'
-                    : 'text-content-secondary hover:bg-bg-card hover:text-content-primary'
+                    ? 'bg-accent/15 text-accent font-semibold'
+                    : 'text-content-primary hover:bg-accent/[0.06] hover:text-accent'
                 }`}
               >
                 {opt.label}
@@ -163,9 +239,12 @@ export default function CTA() {
   const [form, setForm] = useState(() => {
     const saved = typeof window !== 'undefined' ? localStorage.getItem('contact_user') : null;
     const user = saved ? JSON.parse(saved) : {};
-    return { name: user.name || '', email: user.email || '', company: '', projectType: '', timeline: '', message: '' };
+    return { name: user.name || '', email: user.email || '', company: '', projectType: '', customProjectType: '', timeline: '', customTimeline: '', message: '' };
   });
   const [status, setStatus] = useState('idle'); // idle | sending | sent | error
+  const [bookingOpen, setBookingOpen] = useState(false);
+  const openCalendar = useCallback(() => setBookingOpen(true), []);
+  const closeCalendar = useCallback(() => setBookingOpen(false), []);
 
   const set = (field) => (e) => {
     const val = e.target ? e.target.value : e;
@@ -177,7 +256,9 @@ export default function CTA() {
     }
   };
 
-  const isValid = form.name && form.email && form.projectType && form.message;
+  const projectTypeValid = form.projectType && (form.projectType !== 'custom' || form.customProjectType.trim());
+  const timelineValid = !form.timeline || form.timeline !== 'custom' || form.customTimeline.trim();
+  const isValid = form.name && form.email && projectTypeValid && timelineValid && form.message;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -185,11 +266,14 @@ export default function CTA() {
 
     setStatus('sending');
 
+    const resolvedProjectType = form.projectType === 'custom' ? form.customProjectType.trim() : form.projectType;
+    const resolvedTimeline = form.timeline === 'custom' ? form.customTimeline.trim() : form.timeline;
+
     const templateParams = {
       from_name: form.name,
       from_email: form.email,
-      subject: form.company ? `${form.projectType} — ${form.company}` : `${form.projectType} inquiry from ${form.name}`,
-      budget: [form.projectType, form.timeline && `Timeline: ${form.timeline}`, form.company && `Company / Project: ${form.company}`].filter(Boolean).join(' · '),
+      subject: form.company ? `${resolvedProjectType} — ${form.company}` : `${resolvedProjectType} inquiry from ${form.name}`,
+      budget: [resolvedProjectType, resolvedTimeline && `Timeline: ${resolvedTimeline}`, form.company && `Company / Project: ${form.company}`].filter(Boolean).join(' · '),
       message: form.message,
     };
 
@@ -201,7 +285,7 @@ export default function CTA() {
       await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_AUTOREPLY_ID, templateParams, EMAILJS_PUBLIC_KEY);
 
       setStatus('sent');
-      setForm({ name: '', email: '', company: '', projectType: '', timeline: '', message: '' });
+      setForm({ name: '', email: '', company: '', projectType: '', customProjectType: '', timeline: '', customTimeline: '', message: '' });
       setTimeout(() => setStatus('idle'), 8000);
     } catch {
       setStatus('error');
@@ -249,7 +333,7 @@ export default function CTA() {
             <ScrollReveal delay={0.13}>
               <button
                 type="button"
-                onClick={openCalendly}
+                onClick={openCalendar}
                 className="w-full mb-4 inline-flex items-center justify-between gap-3 px-5 py-4 rounded-2xl bg-accent text-white text-[14px] font-semibold hover:bg-accent-hover transition-all shadow-lg shadow-accent/20 group"
                 data-hover
               >
@@ -304,10 +388,30 @@ export default function CTA() {
                 </label>
                 <CustomSelect
                   value={form.projectType}
-                  onChange={(v) => setForm(f => ({ ...f, projectType: v }))}
+                  onChange={(v) => setForm(f => ({ ...f, projectType: v, customProjectType: v === 'custom' ? f.customProjectType : '' }))}
                   options={projectTypeOptions}
                   placeholder="Pick what fits best"
                 />
+                <AnimatePresence>
+                  {form.projectType === 'custom' && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0, marginTop: 0 }}
+                      animate={{ height: 'auto', opacity: 1, marginTop: 10 }}
+                      exit={{ height: 0, opacity: 0, marginTop: 0 }}
+                      transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                      className="overflow-hidden"
+                    >
+                      <input
+                        type="text"
+                        placeholder="Tell me what you need…"
+                        className="form-input"
+                        value={form.customProjectType}
+                        onChange={set('customProjectType')}
+                        required
+                      />
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
 
               <div>
@@ -316,10 +420,29 @@ export default function CTA() {
                 </label>
                 <CustomSelect
                   value={form.timeline}
-                  onChange={(v) => setForm(f => ({ ...f, timeline: v }))}
+                  onChange={(v) => setForm(f => ({ ...f, timeline: v, customTimeline: v === 'custom' ? f.customTimeline : '' }))}
                   options={timelineOptions}
                   placeholder="When are you hoping to start?"
                 />
+                <AnimatePresence>
+                  {form.timeline === 'custom' && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0, marginTop: 0 }}
+                      animate={{ height: 'auto', opacity: 1, marginTop: 10 }}
+                      exit={{ height: 0, opacity: 0, marginTop: 0 }}
+                      transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                      className="overflow-hidden"
+                    >
+                      <input
+                        type="text"
+                        placeholder="e.g. Q3 launch, after funding round, flexible…"
+                        className="form-input"
+                        value={form.customTimeline}
+                        onChange={set('customTimeline')}
+                      />
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
 
               <div>
@@ -350,7 +473,7 @@ export default function CTA() {
               <div className="pt-1 text-center">
                 <button
                   type="button"
-                  onClick={openCalendly}
+                  onClick={openCalendar}
                   className="inline-flex items-center gap-1.5 text-content-muted hover:text-accent text-[13px] font-medium transition-colors group"
                   data-hover
                 >
@@ -363,6 +486,8 @@ export default function CTA() {
           </ScrollReveal>
         </div>
       </div>
+
+      <BookingModal open={bookingOpen} onClose={closeCalendar} />
     </section>
   );
 }
