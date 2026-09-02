@@ -46,10 +46,9 @@ function CharReveal({ children, delay = 0, inView = false }) {
 
 const marqueeItems = ['React', 'JavaScript', 'Figma', 'UI/UX', 'Python', 'Java', 'C++', 'Git', 'Next.js', 'TypeScript', 'Tailwind', 'MongoDB'];
 
-export default function Hero({ ready = true }) {
+export default function Hero() {
   const ref = useRef(null);
-  const rawInView = useInView(ref, { once: true });
-  const inView = rawInView && ready;
+  const inView = useInView(ref, { once: true });
 
   // Hi(2.5s) → wave twice seamlessly(5s) → Hi(2.5s) → ...
   const [showWave, setShowWave] = useState(false);
@@ -141,8 +140,12 @@ export default function Hero({ ready = true }) {
               />
               <div className="relative w-[240px] h-[280px] sm:w-[260px] sm:h-[310px] md:w-full md:h-[360px] lg:h-[390px] rounded-[20px] sm:rounded-[24px] overflow-hidden border border-border/30 shadow-2xl shadow-black/25">
                 <img
-                  src="assets/hero.webp"
-                  alt="Profile"
+                  src="/assets/hero.webp"
+                  alt="Manikandan — web designer and frontend developer"
+                  width="260"
+                  height="390"
+                  fetchPriority="high"
+                  decoding="async"
                   className="w-full h-full object-cover object-top"
                 />
                 <motion.div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/[0.04] to-transparent" animate={{ x: ['-150%', '250%'] }} transition={{ duration: 3, repeat: Infinity, repeatDelay: 8, ease: 'easeInOut' }} />

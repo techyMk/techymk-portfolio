@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useLayoutEffect, useState, useCallback, lazy, Suspense } from 'react';
 import Lenis from 'lenis';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowUp, Coffee } from 'lucide-react';
@@ -7,14 +7,16 @@ import Cursor from './components/Cursor';
 import FloatingTech from './components/FloatingTech';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
-import Services from './components/Services';
-import About from './components/About';
-import Projects from './components/Projects';
-import Testimonials from './components/Testimonials';
-import FAQ from './components/FAQ';
 
-import CTA from './components/CTA';
-import Footer from './components/Footer';
+// Everything below the fold is split out of the entry bundle so it downloads
+// in parallel instead of blocking the first paint.
+const Services = lazy(() => import('./components/Services'));
+const About = lazy(() => import('./components/About'));
+const Projects = lazy(() => import('./components/Projects'));
+const Testimonials = lazy(() => import('./components/Testimonials'));
+const FAQ = lazy(() => import('./components/FAQ'));
+const CTA = lazy(() => import('./components/CTA'));
+const Footer = lazy(() => import('./components/Footer'));
 
 function ScrollToTop() {
   const [show, setShow] = useState(false);
@@ -84,10 +86,15 @@ export default function App() {
 
   const handleLoaderComplete = useCallback(() => setLoading(false), []);
 
+  // Hand off from the static splash in index.html. Runs after React has
+  // committed its own loader to the DOM but before paint, so there's no gap.
+  useLayoutEffect(() => {
+    document.getElementById('splash')?.remove();
+  }, []);
+
   // Safety fallback — force remove loader after timeout
   useEffect(() => {
-    const isMobile = window.matchMedia('(hover: none)').matches || window.innerWidth < 768;
-    const fallback = setTimeout(() => setLoading(false), isMobile ? 2200 : 4000);
+    const fallback = setTimeout(() => setLoading(false), 2200);
     return () => clearTimeout(fallback);
   }, []);
 
@@ -166,16 +173,22 @@ export default function App() {
       <Cursor />
       <Navbar />
       <main className="relative z-[1]">
-        <Hero ready={!loading} />
-        <Services />
-        <About />
-        <Projects />
-        <Testimonials />
-        <FAQ />
+        {/* Renders and animates on mount — deliberately not gated on the
+            loader, so LCP isn't held hostage to the intro animation. */}
+        <Hero />
+        <Suspense fallback={<div className="min-h-screen" />}>
+          <Services />
+          <About />
+          <Projects />
+          <Testimonials />
+          <FAQ />
 
-        <CTA />
+          <CTA />
+        </Suspense>
       </main>
-      <Footer />
+      <Suspense fallback={null}>
+        <Footer />
+      </Suspense>
       <ScrollToTop />
 
       <BuyMeCoffee />

@@ -95,12 +95,12 @@ export default function Loader({ onComplete }) {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    // Shorter loader on mobile for snappier first paint
-    const isMobile = window.matchMedia('(hover: none)').matches || window.innerWidth < 768;
-    const duration = isMobile ? 1100 : 2200;
-    const phase1At = isMobile ? 300 : 600;
-    const phase2At = isMobile ? 1200 : 2400;
-    const completeAt = isMobile ? 1700 : 3200;
+    // The hero now paints underneath this overlay rather than waiting on it,
+    // so the intro can be short everywhere — no need for a mobile special case.
+    const duration = 1100;
+    const phase1At = 300;
+    const phase2At = 1200;
+    const completeAt = 1700;
 
     const start = Date.now();
     const tick = () => {
@@ -160,7 +160,7 @@ export default function Loader({ onComplete }) {
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
           >
             <motion.img
-              src="assets/favicon.webp"
+              src="/assets/logo-200.webp"
               alt="TechyMk"
               className="w-[80px] h-[80px] sm:w-[100px] sm:h-[100px] rounded-full"
               animate={{

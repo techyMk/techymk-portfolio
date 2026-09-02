@@ -5,24 +5,69 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TechyMk | Web Designer & Frontend Developer Portfolio</title>
     <meta name="description" content="TechyMk — India-based web designer & frontend developer crafting premium digital experiences." />
-    <link rel="icon" href="assets/favicon.webp">
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preconnect" href="https://api.fontshare.com" crossorigin />
-    <link rel="preconnect" href="https://calendar.google.com" />
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" onload="this.onload=null;this.rel='stylesheet'" />
-    <link rel="preload" as="style" href="https://api.fontshare.com/v2/css?f[]=clash-display@200,300,400,500,600,700&display=swap" onload="this.onload=null;this.rel='stylesheet'" />
-    <noscript>
-      <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
-      <link href="https://api.fontshare.com/v2/css?f[]=clash-display@200,300,400,500,600,700&display=swap" rel="stylesheet" />
-    </noscript>
+    <link rel="icon" href="/assets/favicon-64.webp" />
+
+    <!-- Self-hosted fonts: preload only what the first screen renders with. -->
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/inter-latin.woff2" crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/clash-display-700.woff2" crossorigin />
+    <!-- Hero photo is referenced from JS, so the preload scanner can't find it. -->
+    <link rel="preload" as="image" href="/assets/hero.webp" fetchpriority="high" />
+
     <script>
       (function(){var s=localStorage.getItem('theme'),d=window.matchMedia('(prefers-color-scheme: dark)').matches;if(s==='dark'||(!s&&d))document.documentElement.classList.add('dark')})();
     </script>
-    <script type="module" crossorigin src="/assets/index-DbF0kmE6.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-DiRo8mAV.css">
+
+    <!--
+      Static first frame of the loader. The app is a client-rendered SPA, so
+      without this nothing paints until the JS bundle has downloaded, parsed and
+      executed. This markup makes FCP a function of the HTML alone; React mounts
+      its own loader on top and main.jsx removes this node.
+    -->
+    <style>
+      #splash {
+        position: fixed;
+        inset: 0;
+        z-index: 9998;
+        background: rgb(6, 6, 6);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      #splash .splash-logo {
+        width: 80px;
+        height: 80px;
+        border-radius: 9999px;
+      }
+      #splash .splash-corner {
+        position: absolute;
+        width: 32px;
+        height: 32px;
+        border: 0 solid rgba(255, 255, 255, 0.06);
+      }
+      #splash .splash-tl { top: 24px; left: 24px; border-top-width: 1px; border-left-width: 1px; }
+      #splash .splash-tr { top: 24px; right: 24px; border-top-width: 1px; border-right-width: 1px; }
+      #splash .splash-bl { bottom: 24px; left: 24px; border-bottom-width: 1px; border-left-width: 1px; }
+      #splash .splash-br { bottom: 24px; right: 24px; border-bottom-width: 1px; border-right-width: 1px; }
+      @media (min-width: 640px) {
+        #splash .splash-logo { width: 100px; height: 100px; }
+      }
+    </style>
+    <script type="module" crossorigin src="/build/index-dGw7mwXr.js"></script>
+    <link rel="modulepreload" crossorigin href="/build/motion-Bnqnir4q.js">
+    <link rel="modulepreload" crossorigin href="/build/react-vendor-Fj0lwZj3.js">
+    <link rel="stylesheet" crossorigin href="/build/index-CQ4b5qlY.css">
   </head>
   <body>
-    <div id="root"></div>
+    <div id="splash">
+      <span class="splash-corner splash-tl"></span>
+      <span class="splash-corner splash-tr"></span>
+      <span class="splash-corner splash-bl"></span>
+      <span class="splash-corner splash-br"></span>
+      <img class="splash-logo" src="data:image/webp;base64,UklGRp4RAABXRUJQVlA4WAoAAAAQAAAAxwAAxwAAQUxQSF0FAAABCsrT9qeRI9kDFY67w9Bh5k4ny7thnu4wzx7DMKEr/QHDM8sMZ8ahMNNgmJmZu6dGhyaD9FPVnn6WImICkOW6p0dgTMasuUqpmVNHB3q10gmwU3sHNxb9evRWhCYtbx7/rWBdsF8agBq9u+7HqtfU8je1P2a91xguRijn4BtqYzwkZxjw0EduO1BPHajk1oAGCP3DwuvUwVflRzoMRhTcoI5XuX7uedbWUEZWZ3l55v/2BWXoq+/8nNIydlDm7gpq/NHnV1Mm18xP4Ys2/6TL7FMLdY5MPE6ZXjmJF4NLKPNLh/DAKIhQDtYXG8zLvE05KTM1pnUroRwt684ubcVTl6vPlmuM6lTqcrdEMinjHuXwg1nsScttcLmMBemM6XyAcvtQF6aMukM5fncMQ5aEKdcjK1mh51DuF6YwofEvFIC/NWaAZ48Lwn1ex7WvpkCs7egw3zkKxvPdHCUvuoC81NVBvgsUlBfQMe3PUmBKdIin2gVnjdcRjfe4AN3b2AH6rxSkUrdfHgVqvu2WuWBdbrNRYbiE0Vad71DAKp+N0g9Q0B5Kt08eBW6+bUIN0MGQTTrdo+C919EWWikFcAnaYYULYrRB92cwUt2tK3WBrCzLpGDOtMi4DSdpWFNAAV1gyaAIpCRaoVxQKwsmu8CeZJpeCa3julnzKbjnmaSfhNcJ3Zz5FOBoilYNMYVmTHNBLs3YATM0wU+B7k/uG6ippDwvofbCk8xaCvY1yVTDrSqJ4RTwwxPLg5xKKOUm5FAmMpqCfnQixbArSkC7DrtrGC/gAl/G2wK9zfH2Q29/HCMCPWnEClHwh2LlwE/GOgy/wzEah+EXVlHvUwF8P2qdCGRF/SACMqpKBCoRMfW1CKhUxD6uECrEDDFQiOvFYB1igRgUIP4mBgrxqBgoxJtigESPiIHUvVQQVS9R6BkQBTlKFHCqKMiZoqDmioL6/8pMUVBSFCSKAgZEQfYSBekVBaVHxEBq5KYY3CB4TAyOIv4mBgqxUAwKENeJwTrEDDFQiH3EQCGmvhaBV6mIWCUClYiIP4jA91FZIpAV9b4IvBfVOAy/NyoKD8EPScwc+GXHCsEvFMuoh16kZSzcD739GHcL9LbEC0BPxtOuwU5iPCyGHZIER8NuVCIpNyCnZCKYB7lcTNgPOX9iWAU3iUmuhduaZDwvoPbCSAa/hprEpIdBDZPDHTBDYuJUmEkztGqIKTQDF0BsAZqqn4CX1M3BefBCYrJeCa1K3SycBC2F5pfCqgQtHByBlBxsBRZCSqKlxm04ScMaXAwnJFaXQkmh5d2fwUh1tw5XwWglsaFWAiGFdsCO9+FzvyPac0YDdFARuxZCR6Jt0w/CRqXbB313IYM+YufRYbiER6O9l8FFot3zoKLQ9im/w+Q3aT9ssg8i+5A40VsLD/QQZ3Y4Bw2FxKldL8FCdkXndrsEiYvd0Mldz8PhrI84u0MtFOo6EKd798JgnyLOb/wrBH5rQlio5/EvV0dGLgvz7c0Sws5Rd3imPiQs9R3iF/oIW9PzG/iE+emEucF7PLoXIizuVMqfEols1lY/58uz5Rphds9ynvzXDVmufXyPF7cXEdZ7P6vnQaTIQA4OKWPfvwMJJ6fVsq1yEuGnnnmWXXVzdeRqamYdm2rm64S7WnA3eyqmaoTPge9eseTFV8MIx1tl1bCiOssgvB9RcMt5N3L9CMKUcZ/ecNLVwo90Akd35LYD9U5QcmtAI+A0ZhQej9hJYr4yCFibfrT+x6rX1r2p/XnTqGYEvqm9gxsLfz16K5KcvHn8z083BPunEWBrnh6BMRmz5iqlZk8b+3afVjphOQBWUDggGgwAANBCAJ0BKsgAyAA+YSyRRiQirCYqFIrhgAwJYhFASp8A8gxrZ6jDc3nfzA9uC0/338GeyHzjkven3wh/H+73teeYB+q37Bf2nsJ+YX9uP2Z93L/R/sr7uP6/6gH9J/03WMegB+6nptfub8If9k/437Ve2HmQm8efsnnLiNV73EvkjcYmiYFFOvZ0YqkgJHTiqgvUWmail5PDVl6FWCPv56SB+pgh3MmCub6pqHiu60IKb7b9rxtJnyDlvkpcm57dboPifTaNkCnhktOXcQaGR6et1VM42FjBT6s/dy4MpoAR9kGmB/VbnufG65WRC0AabaILSwzoUy+8vdzNXm88MIqZIr+/cT2C8qFsVe9o6AV28HJZWaJmIlG+Eq7/AUMSRRBGAMtOnMR8Sgzqvm2mOvOzvJgaFVLB4P9SUsOKXvGxwz0exQNdjXuLYMN+QkEmBQZYq2vWjiBbQdIDiDJ/IHW4/e5RG9cpoSVei62BNzOvqL9xrf23bwMgZh8/eEnaY3NJshfCO1E9cyqymQySrOprJvLml5Djslxmt/l8hepLgScLmo39OCv0WGuSYodDZUDw+x72Qp3jjBoKkUHpxNRfo+L39qat9GbuzaPr2wOlVi42hkiZvdIzDvBR7Z71eQHrfEBA9ea8EmgWgwexFsfetaBM5ZljcorG3TPjBAMU+WRxVUy5d/k3B2VuLF9TgnI9VBkduZMdc94alcHoAAD+/W5Jk4suu6rhyJiBJIjnbnGMGHq/ruTTpAA+kgC8p3+52vtOkcdjmEVrAryqMqoRBLsUitQAe+ShaQpsjln7S6TvMF9LBJgq0r+2s6wrnw2Va66rmJzZkA1jgYC4mDqMuN9HGK5yANCoZQ4tI98ykqqHRq7+HZqvR78GWWePOvv4jgq9FQ3/Ei7H8p9dHgI7Zhf8PuWPvJ2EUWNzhbpOxGQdrU2LEDO/uIH7zZOYoJsjl1uCo/iwk8LOXt8qcgP0dQ4Ez/xLLjc8GpXMb3zq0/25pTluRTEY7Uw4HtKIAwLZMiMe1zKDWYnC2u2fO4vu+sY444GDkWCv4aXj2cVr4NnI827JloobD1o5V1bnAthSVfyt9VOCE4bMTpu1Ejad/m+hfaUpN+YkvZ5rZm2mqRyuQ0gTLief1reE6ZRYMDzqtlG3Awji4NJ596vvqusaVvsc6QADARm9pYiIzMx9UKuq5cWbxv/nwC4ufYZHW5UyoOOF3DmCcsps52Lv7tlfUOOlaV76x60kaO+f5COIiXrF4A4+mOpRWg77Wh7s/4jZ99qo4YN7YEm+Zh5jZ6hefHLXjbPwAoRJOLM1mFbNcjzes1jzaHdk2PpwTYCze7gGaN/Q7nueS6r3yGzZXoBck4D06Z/ia3GYdSS1I0aPPhWIhkayPtFmesi6bCPHf4SLKyAJl2qcN4icGPF3RnqRI74ZFs7ZmqA9zt7SJHY7Tv4NmjDns3kPaaQRS7PzmazrJdQ9ZS04zRLY3w1eDSAcz1YsUViA80dE5YnUQU9ir2UqtdFExCBY3Ynxwlkensi64Gfq1r/o8EVwZDHZbrolPsfubdvyJfkgQ5cC8XGbVqsGp/125aV7u84KkE6uKEqC5GmPCzr4RYspf0g4a4wN4jaDVx/G12/jiXHYgn/U3X8K7lkbE360BgoS6I8lGicvOZxoGYLYXypiLb29yKZowNnPGquoo8pdyAFcsA2khQQCrEL1cgkAN/8ZNVNy2/cvJYiJCrUErTlc2qRuVkqudXhiqFayNDlIBdXOfTb1VJWkemSv6/0HaUgnDPlYu33epcAAPUYxbBHFALDX5yF3CQazImFZ6jUcUskJY9KaXpJPsm74oCzfKzgChYWo5uetKEzeh39EnIGK+sABGUSDzbNKQclZQVCw+6I2xDa5EBASCT1fuCiUqrcMOxAvlx8E5MzZzbceFNha2fFp0vSqRV4MSz2K7u1B08qHSU/jk7P7FZfln0eWAZ91zCYeFiZyT7WUGM3hR7Kz3sg8HqTKaExwBx0y0CnjZ9+CAqP3r7hRUPU6A5SOrx/fT/xaSSPmyEU/fXqbZ18FJz5uyLk434lwBwYt8XuvfRtHAL/9baauPrnYj+PQDMJR+fiHOacGODi4VSz+IPhaHA9//5DIjnSxxE6PwmCxp1xsrDPDXeWta06VcloC+n6H+ARoKTbA6p4ItNLdjVrMFOumt70EqAOlKhZ+4Bmd7rv7+IW8Nd9LDhwjaeAR3pwjES/SC2I8tiTsM5AvZnbgXdd8fHoKVs7lgMw3SNs2nA0Pd//Qg4AGDuP+m5JdIDbHW1sAkhjZ90g2LRd28iO3RRWbzOc5e/Y7rov5mQpLgf/qlZNk33FmcTg2a5D5K+7dUbFyLsIS3DLAtuOrwgaw9mnPs9tS224u9rJ/pnOZcRE2x4AXHGmX5Bv/OYuAKdeD1vgSJ0pgTKb+MMDtokzT/b3sUjII3B4JBVFDW6UFSdtmN4b36nteO0ym1RosmV2/uomrQxpMu5q+wlnzbl4/OESX+pSzwLZazw4kxqixHsWc6wxTlnluNTN+XpyeP/9XTM3kGkcFJlqgRkQvZmPoR8LHVtwRCX9Mrv0dx50NwVsprMjS6eLt3k7nf8c3SmPNKo2BjVE8bDe1CaQpgb0pofNN528XlZgBx4a8fiGwHg3+9HU6lrZXIZqM1C8jlTuaDZkAMOeSA63r+dBnZPN4sGnTdFi4K+wSnLGganAFYY7cRrEnOOFTHqK1CdtzQ4nS/3tvsCteD5DvPD1SFoVPv3605IEPm7NnFcnTVh7X2ENA9tgOoxlZ5otGwq1bmd+ymbbMRXx0xV+U5hEowvFLVVCn9EOCJgGuVJUFmrP/cmoC9VzhFZk4uywHsKz/DYxW5hASPhVJBRE/UA9sgINrwH2pNCZT+RLKFpUbVMg+CSlxrpbxWbiQjZpkGQJb8SSqChRrpJAGNc3Z688tKdiCXucw3o1OyLD6Bz3gK1yDlkrSU4WuGgz3n0EwjDbz47D8my7VnesD2SgWC3LdRE3ols5en15bLUiuNIjNff0ga6cd+DPmpG+tfRcV4AcWaY2X/JcaWMTjQSWip8+RdJnl6qDParK6TgzGzypgguBdjJd7TVQE9DpuUES4OJrRjJmEhp6HAWrcO6Fj9/hp5496V+twPVRgPMy0wJV2saZTWzGVcmOoSw8ApM5sK5hUtHjcb6MT63KdZMCjRt1wVWT/iI5Omw6FJm3vCP3batQ3wNKIQiPwff6C/9lB/zKpG4L4PmL6NDeqinISsS4keRrWf2hFRhp0FmMVc9PKsc/M3Rys6DH+Q0Rpvwj0X3f34uQ7v/Ta7UYHasHOIzIfkqo6g2nOeBnTZNEnzY/L4tVsvlytlQI4yxqyWD/n3QDsEnrDx23svVFzj5NM8II4ihTmXotAJnW/twyxC2JoNGN30g1yvvAWfya/e7zu4HbUtNYg/G4eaEvgqK+tnT77R3OzzmwO09Jq96PJfO9HFE03SZedX1IwHgmW0ldp5X0hfCSDG8ShnSazrNzLbxOpLQ/MLz7M1bik2YpgM8PRpUPRhdJfTbSzR/so6zGrwIt8QySxAhXL9A3WpU4Q+qpaHCJleMvxvOcba5P6x6lhNGCmF6zdrSidmND1p38hzZM8H4UAAHhr+JhGLjj+6hRsGR2xEjr6ROGtFwyknMZuy094Vqj9fd8HcbGqKxjKgFwdiA8plxfpq/Cu5c2yRuxU/UxZUFX8tq3G6/eLWKvfXKk5VFV+q2anqX+41kPetpLeEzA0EHpMPs9oQYz2NTkl4Lxv7EIwDFWWBS7PXRLClLPAkoIIrG9D5FQFYIKY1hn8pb/bVI81/AImWXkQvuH/ZMxOdHBYS0R0RIpKxNN+Ge94+IsTd4dlgCP3kPc59sSpQDXRU393zM+pNSWBCM9mQYkGrKqGwRIe1iZldQ5wwQPhCCldIxv9GoTFtHBTA/OOR8w7Tr7I1AwOjxjGtF6+M8gAUYY65QXPN731Lwz3Gmdt02/sNoLyUij0oGLlZso8/p1N/EPzYybshwoY50zPUKnOpIgY/FRYnwUzp80JlRp/x6wuXa4T6PAh952IXKxRVLofgAAAGHP//odheX6YTdl6sjqHVNbhEe6l0HugAAAA" alt="TechyMk" width="100" height="100" />
+    </div>
+    <noscript>
+      <style>#splash { display: none; }</style>
+    </noscript>
+    <div id="root"></div>
   </body>
 </html>
