@@ -105,6 +105,14 @@ const projectTypeOptions = [
   { label: 'Other (specify below)', value: 'custom' },
 ];
 
+const budgetOptions = [
+  { label: 'Under $500', value: 'Under $500' },
+  { label: '$500 – $1,500', value: '$500-$1.5k' },
+  { label: '$1,500 – $5,000', value: '$1.5k-$5k' },
+  { label: '$5,000+', value: '$5k+' },
+  { label: 'Not sure yet', value: 'Not sure yet' },
+];
+
 const timelineOptions = [
   { label: 'ASAP', value: 'ASAP' },
   { label: 'In the next few weeks', value: 'Few weeks' },
@@ -239,7 +247,7 @@ export default function CTA() {
   const [form, setForm] = useState(() => {
     const saved = typeof window !== 'undefined' ? localStorage.getItem('contact_user') : null;
     const user = saved ? JSON.parse(saved) : {};
-    return { name: user.name || '', email: user.email || '', company: '', projectType: '', customProjectType: '', timeline: '', customTimeline: '', message: '' };
+    return { name: user.name || '', email: user.email || '', phone: user.phone || '', company: '', projectType: '', customProjectType: '', budget: '', timeline: '', customTimeline: '', message: '' };
   });
   const [status, setStatus] = useState('idle'); // idle | sending | sent | error
   const [bookingOpen, setBookingOpen] = useState(false);
@@ -249,8 +257,8 @@ export default function CTA() {
   const set = (field) => (e) => {
     const val = e.target ? e.target.value : e;
     setForm(f => ({ ...f, [field]: val }));
-    // Persist name & email for next visit
-    if (field === 'name' || field === 'email') {
+    // Persist name, email & phone for next visit
+    if (field === 'name' || field === 'email' || field === 'phone') {
       const saved = JSON.parse(localStorage.getItem('contact_user') || '{}');
       localStorage.setItem('contact_user', JSON.stringify({ ...saved, [field]: val }));
     }
@@ -272,8 +280,12 @@ export default function CTA() {
     const templateParams = {
       from_name: form.name,
       from_email: form.email,
+      from_phone: form.phone.trim() || 'Not provided',
       subject: form.company ? `${resolvedProjectType} — ${form.company}` : `${resolvedProjectType} inquiry from ${form.name}`,
-      budget: [resolvedProjectType, resolvedTimeline && `Timeline: ${resolvedTimeline}`, form.company && `Company / Project: ${form.company}`].filter(Boolean).join(' · '),
+      project_type: resolvedProjectType,
+      budget: form.budget || 'Not specified',
+      timeline: resolvedTimeline || 'Not specified',
+      company: form.company.trim() || 'Not provided',
       message: form.message,
     };
 
@@ -285,7 +297,7 @@ export default function CTA() {
       await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_AUTOREPLY_ID, templateParams, EMAILJS_PUBLIC_KEY);
 
       setStatus('sent');
-      setForm({ name: '', email: '', company: '', projectType: '', customProjectType: '', timeline: '', customTimeline: '', message: '' });
+      setForm({ name: '', email: '', phone: '', company: '', projectType: '', customProjectType: '', budget: '', timeline: '', customTimeline: '', message: '' });
       setTimeout(() => setStatus('idle'), 8000);
     } catch {
       setStatus('error');
@@ -375,11 +387,19 @@ export default function CTA() {
                 </div>
               </div>
 
-              <div>
-                <label className="text-content-muted text-[11px] uppercase tracking-wider font-semibold mb-2.5 block">
-                  Company / project <span className="text-content-muted/60 normal-case tracking-normal">(optional)</span>
-                </label>
-                <input type="text" placeholder="Company name or project" className="form-input" value={form.company} onChange={set('company')} />
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="text-content-muted text-[11px] uppercase tracking-wider font-semibold mb-2.5 block">
+                    Company / project <span className="text-content-muted/60 normal-case tracking-normal">(optional)</span>
+                  </label>
+                  <input type="text" placeholder="Company name or project" className="form-input" value={form.company} onChange={set('company')} />
+                </div>
+                <div>
+                  <label className="text-content-muted text-[11px] uppercase tracking-wider font-semibold mb-2.5 block">
+                    Phone / WhatsApp <span className="text-content-muted/60 normal-case tracking-normal">(optional)</span>
+                  </label>
+                  <input type="tel" inputMode="tel" autoComplete="tel" placeholder="+91 98765 43210" className="form-input" value={form.phone} onChange={set('phone')} />
+                </div>
               </div>
 
               <div>
@@ -412,6 +432,18 @@ export default function CTA() {
                     </motion.div>
                   )}
                 </AnimatePresence>
+              </div>
+
+              <div>
+                <label className="text-content-muted text-[11px] uppercase tracking-wider font-semibold mb-2.5 block">
+                  Budget <span className="text-content-muted/60 normal-case tracking-normal">(optional)</span>
+                </label>
+                <CustomSelect
+                  value={form.budget}
+                  onChange={(v) => setForm(f => ({ ...f, budget: v }))}
+                  options={budgetOptions}
+                  placeholder="Rough range is fine"
+                />
               </div>
 
               <div>
